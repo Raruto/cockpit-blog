@@ -25,17 +25,17 @@ date_default_timezone_set('UTC');
 
 // handle php webserver (dev-only) [ php -S localhost:8080 index.php ]
 if ( PHP_SAPI == 'cli-server' ) {
-  $path  = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+  $path  = __DIR__ . parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
   $index = rtrim( $path, '/') . '/index.php';
   /* "dot" routes (see: https://bugs.php.net/bug.php?id=61286) */
   $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI'];
   /* static files (eg. css/app.css) */
-  if ( is_file( __DIR__ . $route ) ) {
+  if ( is_file( $path ) ) {
     return false;
   }
   /* index files (eg. install/index.php) */
-  if ( is_file( $index ) && $route != '/' ) {
-    include_once( __DIR__ . $index);
+  if ( is_file( $index ) && $_SERVER['REQUEST_URI'] != '/' ) {
+    include_once( $index);
     exit;
   }
   /* admin routes (eg. admin/api/get/collection/posts) */
