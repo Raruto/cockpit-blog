@@ -1,0 +1,11 @@
+{
+  "name": "{{{ $app['app.name'] }}}",
+  "short_name": "{{{ $app['app.short_name'] ?? $app['app.name'] }}}",
+  "icons": [{
+    "src": "{{{ $app['site_url'] . $app['base_route'] . '/media/app/google-touch-icon.png' }}}",
+    "sizes": "512x512"
+  }],
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "display": "fullscreen"
+}

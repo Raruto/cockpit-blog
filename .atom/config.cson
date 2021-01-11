@@ -1,0 +1,11 @@
+# Lexy templating (syntax highlighter)
+# 
+# TO USE RUN:
+# apm install atomic-management
+# apm install language-blade
+'*':
+  core:
+    customFileTypes:
+      'text.html.php.blade': [
+        'php' # ".blade.php" aliased by ".php" extension
+      ]

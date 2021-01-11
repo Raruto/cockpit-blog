@@ -1,0 +1,4 @@
+Sitemap: {{ $app['site_url'] . $app['base_url'] }}/sitemap.xml
+
+User-agent: *
+Disallow: {{ $app['base_url'] . '/' . COCKPIT . '/' }}

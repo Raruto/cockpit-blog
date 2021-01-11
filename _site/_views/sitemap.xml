@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="@base('sitemap.xsl')"?>
+<sitemapindex xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  {{-- Loop saved collections and display only if: [ "sitemap" => true ] --}}
+  {% $collections = cockpit('collections')->collections(); %}
+  @foreach($collections as $collection)
+    @if(!empty($collection['has_sitemap']) && $collection['has_sitemap'])
+      <sitemap>
+        <loc>{{ $app['site_url'] . $app['base_url'] . '/'  . $app->helper('utils')->sluggify($collection['name']) . '-sitemap.xml' }}</loc>
+        {{--<lastmod>{{ \date('c', ($collection['_modified']) ?? $collection['_created']) }}</lastmod>--}}
+      </sitemap>
+    @endif
+  @endforeach
+</sitemapindex>

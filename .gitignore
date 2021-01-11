@@ -1,0 +1,14 @@
+# Temp folders
+_site/cache/**
+_site/tmp/**
+
+# Cockpit Core
+admin/**
+
+# Cockpit Blog: custom defines
+!admin/defines.php
+
+# Cockpit Core: default folders
+!admin/addons/**
+!admin/config/**
+!admin/storage/**
