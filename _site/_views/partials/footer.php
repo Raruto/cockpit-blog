@@ -6,6 +6,8 @@
       <li><a href="@base('/cookie-policy/')">@lang('Cookie')</a></li>
       <li><a href="@base('/sitemap.xml')">@lang('Sitemap')</a></li>
       <li><a href="@base('/manifest.json')">@lang('Manifest')</a></li>
+      <li><a href="@base('/feed/feed.xml')">@lang('RSS Feed')</a></li>
+      <li><a href="@base('/feed/feed.json')">@lang('JSON')</a></li>
       <li><a href="@base('/login/')">@lang('Login')</a></li>
     </ul>
   </nav>

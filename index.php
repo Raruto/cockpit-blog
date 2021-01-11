@@ -43,7 +43,7 @@ if ( PHP_SAPI == 'cli-server' ) {
     str_replace( "/". COCKPIT, '', $_SERVER['REQUEST_URI'] );
     str_replace( "/". COCKPIT, '', $_SERVER['PATH_INFO'] );
     include_once( COCKPIT . '/index.php');
-    exit();
+    exit;
   }
 }
 
@@ -248,6 +248,16 @@ $app->bind('/pages-sitemap.xml', function() use (&$app) {
   return $app->view('views:pages-sitemap.xml');
 });
 
+// Feed [xml]
+$app->bind('/feed/feed.xml', function() use (&$app) {
+  return $app->view('views:/feed/feed.xml');
+});
+
+// Feed [json]
+$app->bind('/feed/feed.json', function() use (&$app) {
+  return $app->view('views:/feed/feed.json');
+});
+
 // Robots
 $app->bind('/robots.txt', function() use (&$app) {
   return $app->view('views:robots.txt');
@@ -322,6 +332,12 @@ $app->bind('/tag/*', function($params) use (&$app) {
     ]
   ];
   return $app->view('views:archive.php', compact('page'));
+});
+
+// Posts Feed
+$app->bind('/feed', function() use (&$app) {
+  $this->response->mime = 'xml';
+  return $app->render_route('/feed/feed.xml');
 });
 
 // Rest API
@@ -414,7 +430,7 @@ $app->on('after', function() {
     // TODO: how to bypass maintenance when user is logged in? (eg. {{ cockpit('cockpit')->getUser() }} )
     $this->response->status = 503;
   }
-  // try to automatically guess "Content-Type" response header based on route extension (eg. "sitemap.xml" --> xml)
+  // try to guess "Content-Type" response header based on route extension (eg. "sitemap.xml" --> xml)
   if($this->response->mime === 'html' && $this->response->status >= 200 && $this->response->status < 400 && $this->req_is('ajax') == false) {
     $ext = \strtolower(\pathinfo($this->request->route, PATHINFO_EXTENSION));
     $this->response->mime = isset($this->response::$mimeTypes[$ext]) ? $ext : 'html';

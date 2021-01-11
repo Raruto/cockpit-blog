@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ $app['app.name'] }}</title>
+  <subtitle>{{ $app['app.description'] }}</subtitle>
+  {% $feed_url = ($app['site_url'] . $app['base_route'] . $app['route']); %}
+  <link href="{{{ $feed_url }}}" rel="self"/>
+  <link href="{{{ $app['site_url'] }}}"/>
+  {% $last_updated = cockpit('collections')->find('posts', [ 'filter' => [ 'published' => true ], 'sort' => [ '_modified' => -1 ], 'limit' => 1 ]); %}
+  <updated>{{ \date('c', ($last_updated[0]['_modified']) ?? $last_updated[0]['_created']) }}</updated>
+  <id>{{ $feed_url }}</id>
+  @if( !empty( $app['author'] ) )
+  <author>
+    @if( !empty( $app['author']['name'] ) )
+    <name>{{ $app['author']['name'] }}</name>
+    @endif
+    @if( !empty( $app['author']['email'] ) )
+    <email>{{ $app['author']['email'] }}</email>
+    @endif
+  </author>
+  @endif
+  {% $posts = cockpit('collections')->find('posts', [ 'filter' => [ 'published' => true ], 'sort' => [ '_created' => -1 ] ]); %}
+  @foreach($posts as $post)
+  {% $post_url = $app['site_url'] . '/article/' . $post['slug']; %}
+    <entry>
+      <title>{{ (isset($post['title']) ? $post['title'] : '') }}</title>
+      <link href="{{{ $post_url }}}"/>
+      <updated>{{ \date('c', ($post['_modified']) ?? $post['_created']) }}</updated>
+      <id>{{ $post_url }}</id>
+      <content type="html">{{ $post['content'] }}</content>
+    </entry>
+  @endforeach
+</feed>

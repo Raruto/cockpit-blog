@@ -134,6 +134,8 @@ Backup your `admin/defines.php` file and replace the `admin` folder with your [c
   - [Native Lazy Loading](https://web.dev/browser-level-image-lazy-loading/)
   - [SVG Favicons](https://medium.com/swlh/are-you-using-svg-favicons-yet-a-guide-for-modern-browsers-836a6aace3df)
   - [Sitemap XML](https://developers.google.com/search/docs/advanced/sitemaps/build-sitemap)
+  - [RSS feed](https://www.rssboard.org/rss-specification)
+  - [JSON feed](https://www.jsonfeed.org/)
   - [Robots.txt](https://developers.google.com/search/docs/advanced/robots/create-robots-txt)
   - [Manifest.json](https://web.dev/add-manifest/)
   - [Matomo Analytics](https://developer.matomo.org/guides/tracking-javascript-guide)
@@ -143,8 +145,6 @@ Backup your `admin/defines.php` file and replace the `admin` folder with your [c
 
   **Next Steps:**
 
-  - [RSS feed](https://www.rssboard.org/rss-specification)
-  - [JSON feed](https://www.jsonfeed.org/)
   - [Twitter cards](https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started)
   - [Open Graph](https://developers.facebook.com/docs/sharing/webmasters/)
   - [Schema.org](https://schema.org/docs/gs.html)

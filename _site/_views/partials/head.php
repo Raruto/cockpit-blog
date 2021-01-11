@@ -25,6 +25,10 @@
 {{-- Canonical URL --}}
 <link rel="canonical" href="{{{ $app['site_url'] . $app['base_route'] . $app['route'] }}}">
 
+{{-- Feed RSS / JSON --}}
+<link rel="alternate" type="application/rss+xml" title="{{{ $app['app.name'] }}} &raquo; RSS Feed" href="@base('/feed/feed.xml')" />
+<link rel="alternate" type="application/feed+json" title="{{{ $app['app.name'] }}} &raquo; JSON Feed" href="@base('/feed/feed.json')" />
+
 {{-- CSS Styles --}}
 <link rel="stylesheet" href="@base('site:css/app.css')">
 <!--[if IE]><script src="https://cdn.polyfill.io/v2/polyfill.js"></script><![endif]-->
