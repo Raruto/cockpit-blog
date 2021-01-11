@@ -9,7 +9,8 @@
 
 // cockpit admin folder.
 $COCKPIT     = 'admin';
-$COCKPIT_DIR = '../' . $COCKPIT;
+$COCKPIT_DIR = str_replace(DIRECTORY_SEPARATOR, '/', dirname(__DIR__) . '/' . $COCKPIT );
+$DOCS_ROOT   = str_replace(DIRECTORY_SEPARATOR, '/', isset($_SERVER['DOCUMENT_ROOT']) ? realpath($_SERVER['DOCUMENT_ROOT']) : dirname(__DIR__));
 
 // list here your dependencies.
 $repos = [
@@ -24,8 +25,8 @@ $repos = [
 // shutdown stuff.
 $error       = false;
 $autodelete  = [
-  __DIR__ . "/$COCKPIT_DIR/storage",
-  __DIR__ . "/$COCKPIT_DIR/addons"
+  $COCKPIT_DIR . "/storage",
+  $COCKPIT_DIR . "/addons"
 ];
 
 // php execution limit (0 = no limit).
@@ -33,22 +34,26 @@ $autodelete  = [
 
 // print errors.
 if ( is_localhost() ) {
- ini_set( 'display_errors', 1 );
- ini_set( 'display_startup_errors', 1 );
- error_reporting( E_ALL );
+  ini_set( 'display_errors', 1 );
+  ini_set( 'display_startup_errors', 1 );
+  error_reporting( E_ALL );
 }
 
 // minimum system checks.
 if ( version_compare( PHP_VERSION, '7.1.0' ) < 0 ) {
-   echo "Your PHP version is $php_version - too old!";
-   exit();
+  echo 'Aborting: Your PHP version is too old: '. PHP_VERSION;
+  exit();
+}
+if ( !extension_loaded( 'zip' ) ) {
+  echo 'Aborting: Missing zlib extensions';
+  exit();
 }
 
 // automatically delete install folder on complete.
 \register_shutdown_function(function() {
   global $error;
   $e = error_get_last();
-  if ( ( isset($e) && $e['type'] === E_ERROR ) || $error == true ) return;
+  if ( ( isset($e) && $e['type'] === E_ERROR ) || $error === true ) return;
   if ( ! is_localhost() ) {
     rrmdir( __DIR__ );
   }
@@ -209,7 +214,7 @@ function rrename( $path, $dest ) {
     <title>System installation</title>
     <link rel="stylesheet" href="../css/app.css">
     <!-- redirect to cockpit install folder on complete. -->
-    <meta http-equiv="refresh" content="3;url=../<?php echo $COCKPIT; ?>/install">
+    <noscript><meta http-equiv="refresh" content="3;url=../<?php echo $COCKPIT; ?>/install"></noscript>
   </head>
   <body>
     <pre><?php
@@ -226,7 +231,8 @@ function rrename( $path, $dest ) {
           /* step 0 */
           if ( is_dir( "$dest" ) ) {
             if ( empty($repo['force_update']) ) {
-              echo_flush( "$dest folder already exists, skipping.\n" );
+              $_dest = str_replace($DOCS_ROOT, '', $dest);
+              echo_flush( "$_dest folder already exists, skipping.\n" );
               continue;
             } else if( !is_writable("$dest") ) {
               chmod("$dest", 0777);
@@ -277,5 +283,9 @@ function rrename( $path, $dest ) {
       echo_flush( "Bye!\n" );
 
     ?></pre>
+    <!-- redirect to cockpit install folder on complete. -->
+    <?php if ( $error === false ) : ?>
+      <script>setTimeout(function(){window.location.href = '../<?php echo $COCKPIT; ?>/install';},3000);</script>
+    <?php endif; ?>
   </body>
 </html>
