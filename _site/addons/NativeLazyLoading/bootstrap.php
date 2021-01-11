@@ -15,8 +15,6 @@
 if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
   $this->on('admin.init', function() {
     // load custom js
-    $this->helper('admin')->addAssets([
-        __DIR__ . '/assets/editor.js',
-    ]);
+    $this->helper('admin')->addAssets(['nativelazyloading:assets/editor.js']);
   });
 }

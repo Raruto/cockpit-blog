@@ -12,8 +12,8 @@
 if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {
   $this->on('admin.init', function () use ($app) {
     if ($app->module('cockpit')->isSuperAdmin()) {
-      $this->helper('admin')->addAssets(__DIR__. '/assets/cp-quickactions.tag');
-      $this->helper('admin')->addAssets(__DIR__. '/assets/quickactions.js');
+      $this->helper('admin')->addAssets('quickactions:assets/cp-quickactions.tag');
+      $this->helper('admin')->addAssets('quickactions:assets/quickactions.js');
     }
   });
 }

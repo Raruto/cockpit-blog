@@ -12,25 +12,7 @@
   </div>
 
   <script>
-    this.actions = [
-      {
-        "group": "",
-        "actions": [
-          {
-            "path": App.route('/accounts'),
-            "label": App.i18n.get('Users')
-          },
-          {
-            "path": App.route('/settings'),
-            "label": App.i18n.get('Settings')
-          },
-          {
-            "path": App.route('/assetsmanager'),
-            "label": App.i18n.get('Assets')
-          }
-        ]
-      }
-    ];
+    this.actions = [];
 
     this.on('mount', function(data) {
       this.actions = this.opts.actions || this.actions;

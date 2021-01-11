@@ -23,6 +23,26 @@ define('COCKPIT', 'admin');
 // set default timezone
 date_default_timezone_set('UTC');
 
+// handle php webserver (dev-only) [ php -S localhost:8080 index.php ]
+if ( PHP_SAPI == 'cli-server' ) {
+  if ( is_file( __DIR__ . parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH ) ) ) {
+    return false;
+  }
+  $admin_route = false;
+  // rewrite "/admin/" routes
+  if ( strpos( rtrim( $_SERVER['REQUEST_URI'], '/') . '/', "/". COCKPIT . "/" ) === 0) {
+    str_replace( "/". COCKPIT, '', $_SERVER['REQUEST_URI'] );
+    $admin_route = true;
+  }
+  // fix "dot" routes (see: https://bugs.php.net/bug.php?id=61286)
+  $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI'];
+  // admin router
+  if ( $admin_route ) {
+    include_once( COCKPIT . '/index.php');
+    exit;
+  }
+}
+
 // admin router
 // include_once( COCKPIT . '/index.php');
 
