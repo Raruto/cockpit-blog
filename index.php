@@ -268,6 +268,11 @@ $app->bind('/manifest.json', function() use (&$app) {
   return $app->view('views:manifest.json');
 });
 
+// Service Worker [PWA]
+$app->bind('/sw.js', function() use (&$app) {
+  return $app->view('views:sw.js');
+});
+
 // Favicon
 $app->bind('/favicon.svg', function() use (&$app) {
   return $app->view('views:favicon.svg');
@@ -374,6 +379,8 @@ $app->on('site.contentafter', function() { echo '</main>'; });
 $app->on('site.footer', function() {
   // print some debug info
   if($this['debug.info']) $this->renderView('partials:debug.php');
+  // inject service worker code
+  echo "<script>{$this->view('partials:sw-register.js')}</script>";
 });
 
 /**
