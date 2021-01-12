@@ -142,13 +142,13 @@ Backup your `admin/defines.php` file and replace the `admin` folder with your [c
   - [Twitter cards](https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started)
   - [Schema.org](https://schema.org/docs/gs.html)
   - [Matomo Tracking](https://developer.matomo.org/guides/tracking-javascript-guide)
+  - [Offline caching](https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker) (PWA - Service Worker)
   - [Posts Pagination](_site/_views/partials/pagination.php)
   - [Installer Script](install/index.php)
   - [Privacy and Cookie](https://creativecommons.org/policies/)
 
   **Next Steps:**
 
-  - [Offline caching](https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker) (PWA - Service Worker)
   - [Contact form](https://github.com/raffaelj/cockpit-scripts/blob/master/form-validation/contact.php)
   - Search form
   - Multilingualism _(eg. through a catch-all route: `$app->run('/*')`)_
