@@ -13,31 +13,31 @@
   "items": [
     {% $posts = cockpit('collections')->find('posts', [ 'filter' => [ 'published' => true ], 'sort' => [ '_created' => -1 ] ]); %}
     {% $last  = array_key_last($posts); %}
-    <?php foreach($posts as $key => $post ) : ?>
-    {% $post_url = $app['site_url'] . '/article/' . $post['slug']; %}
-    {
-      "title": "{{{ (isset($post['title']) ? $post['title'] : '') }}}",
-      "date_published": "{{{ \date('c', $post['_created']) }}}",
-      "date_modified": "{{{ \date('c', ($post['_modified']) ?? $post['_created']) }}}",
-      "id": "{{{ $post_url }}}",
-      "url": "{{{ $post_url }}}",
-      @if( isset( $post['author'] ) || !empty( $post['author'] ) )
-      "author" : {
-        "name" : "{{{ $post['author'] ?? $post['author']['name'] }}}"
-      },
+    @foreach($posts as $key => $post )
+      {% $post_url = $app['site_url'] . '/article/' . $post['slug']; %}
+      {
+        "title": "{{{ (isset($post['title']) ? $post['title'] : '') }}}",
+        "date_published": "{{{ \date('c', $post['_created']) }}}",
+        "date_modified": "{{{ \date('c', ($post['_modified']) ?? $post['_created']) }}}",
+        "id": "{{{ $post_url }}}",
+        "url": "{{{ $post_url }}}",
+        @if( isset( $post['author'] ) || !empty( $post['author'] ) )
+        "author" : {
+          "name" : "{{{ $post['author'] ?? $post['author']['name'] }}}"
+        },
+        @endif
+        @if( isset( $post['excerpt'] ) )
+          "summary": "{{{ $post['excerpt'] }}}",
+        @endif
+        @if(!empty($post['tags']))
+        "tags": @json( $post['tags'] ),
+        @endif
+        "content_text": "{{{ strip_tags( $post['content'] ) }}}",
+        "content_html": "{{{ $post['content'] }}}"
+      }
+      @if( $key !== $last )
+      ,
       @endif
-      @if( isset( $post['excerpt'] ) )
-        "summary": "{{{ $post['excerpt'] }}}",
-      @endif
-      @if(!empty($post['tags']))
-      "tags": "{{{ implode( ",", $post['tags'] ) }}}",
-      @endif
-      "content_text": "{{{ strip_tags( $post['content'] ) }}}",
-      "content_html": "{{{ $post['content'] }}}"
-    }
-    @if( $key !== $last )
-    ,
-    @endif
-    <?php endforeach; ?>
+    @endforeach
   ]
 }

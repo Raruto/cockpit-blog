@@ -35,4 +35,29 @@ return [
   // The file is encrypted using RC4 and converted to base64 before.
   // 'sec_key' => 'xxxxx-SiteSecKeyPleaseChangeMe-xxxxx',
 
+  // You can completely disable CORS when you don't access the API from
+  // within a browser or your Cockpit installation is located on the same
+  // domain as sites loading content from it's API.
+  // 'cors' => [
+  //   'allowedOrigins'   => 'https://yourdomain.com',
+  //   'allowCredentials' => 'true',
+  //   'maxAge'           => 1000,
+  //   'allowedHeaders'   => 'X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding, Cockpit-Token',
+  //   'allowedMethods'   => 'PUT, POST, GET, OPTIONS, DELETE',
+  //   'exposedHeaders'   => 'true'
+  // ]
+
+  // Cockpit uses PHPMailer as a utility for sending email
+  // see: http://phpmailer.github.io/PHPMailer/
+  // 'mailer' => [
+  //   'from'       => 'contactform@example.com'
+  //   'from_name'  => 'MyApp'
+  //   'transport'  => 'smtp'
+  //   'host'       => 'smtphost.provider.com'
+  //   'user'       => 'fancy-username'
+  //   'password'   => 'SuperSafePassword'
+  //   'port'       => 587
+  //   'auth'       => true
+  //   'encryption' => 'starttls'
+  // ]
 ];

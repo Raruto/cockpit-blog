@@ -2,8 +2,10 @@
   <nav class="text-center">
     <ul>
       <li><a href="@base('/')">@lang('Blog')</a></li>
+      <li><a href="@base('/search/')">@lang('Search')</a></li>
       <li><a href="@base('/privacy-policy/')">@lang('Privacy')</a></li>
       <li><a href="@base('/cookie-policy/')">@lang('Cookie')</a></li>
+      <li><a href="@base('/contact/')">@lang('Form')</a></li>
       <li><a href="@base('/sitemap.xml')">@lang('Sitemap')</a></li>
       <li><a href="@base('/manifest.json')">@lang('Manifest')</a></li>
       <li><a href="@base('/feed/feed.xml')">@lang('RSS Feed')</a></li>

@@ -1,12 +1,13 @@
 <?php
-return array (
+ return array (
   '_id' => 'contact',
   'name' => 'contact',
-  'label' => 'contact',
+  'label' => 'Contact',
   'save_entry' => true,
   'in_menu' => false,
   'email_forward' => '',
-  '_created' => 1609855490,
-  '_modified' => 1609855490,
+  '_created' => 1610833121,
+  '_modified' => 1610904656,
   'icon' => 'paperplane.svg',
+  'honeypot' => true,
 );

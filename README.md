@@ -79,9 +79,10 @@ The following classes are part of the cockpit core:
 
 The following plugins are bundled in this repository:
 
-- [Autosave](https://github.com/pauloamgomes/CockpitCMS-Autosave)
-- [BetterSlugs](https://github.com/pauloamgomes/CockpitCMS-BetterSlugs)
-- [ImageOptimizer](https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer)
+- [Autosave](_site/addons/Autosave)
+- [BetterSlugs](_site/addons/BetterSlugs)
+- [Honeypot](_site/addons/Honeypot)
+- [ImageOptimizer](_site/addons/ImageOptimizer)
 - [LivePreview](_site/addons/LivePreview)
 - [NativeLazyLoading](_site/addons/NativeLazyLoading)
 - [QuickActions](_site/addons/QuickActions)
@@ -146,11 +147,10 @@ Backup your `admin/defines.php` file and replace the `admin` folder with your [c
   - [Posts Pagination](_site/_views/partials/pagination.php)
   - [Installer Script](install/index.php)
   - [Privacy and Cookie](https://creativecommons.org/policies/)
-
-  **Next Steps:**
-
   - [Contact form](https://github.com/raffaelj/cockpit-scripts/blob/master/form-validation/contact.php)
   - Search form
+
+  **Next Steps:**
   - Multilingualism _(eg. through a catch-all route: `$app->run('/*')`)_
 
 </details>

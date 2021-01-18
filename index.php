@@ -186,11 +186,14 @@ if($app['debug']) {
  * @link https://cpmultiplane.rlj.me/en/docs/lexy with available language structures
  * @see { cockpit/lib/Lexy.php | cockpit/bootsrap.php }
  */
- $app->renderer->extend(function($content) {
+$app->renderer->extend(function($content) {
     $replace = [
-      'dump'     => '<?php echo highlight_str(expr); ?>', // @dump(expr)
-      'json'     => '<?php echo json_encode(expr); ?>',   // @json(expr)
+      'dump'     => '<?php echo highlight_str(expr); ?>',                       // @dump(expr)
+      'json'     => '<?php echo json_encode(expr); ?>',                         // @json(expr)
+      'form'     => '<?php cockpit()->module("forms")->open(expr); ?>'          // @form(expr)
     ];
+
+    $content = preg_replace('/(\s*)@(endform)(\s*)/', '$1</form>$3', $content); // @endform
 
     $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
       if (isset($match[3]) && trim($match[1]) && isset($replace[$match[1]])) {
@@ -215,6 +218,16 @@ if($app['debug']) {
 // Home page
 $app->bind('/', function($params) use (&$app) {
   return $this->render_route('/blog/*');
+});
+
+// Search page
+$app->bind('/search', function($params) use (&$app) {
+  return $app->view('views:form/search.php');
+});
+
+// Contact page
+$app->bind('/contact', function($params) use (&$app) {
+  return $app->view('views:form/contact.php');
 });
 
 // Test page

@@ -69,6 +69,8 @@ button.acceptcookies {
   background-color: transparent;
   border: 1px solid var(--border);
   color: var(--border);
+  width: auto;
+  text-transform: none;
 }
 
 /**
@@ -131,6 +133,40 @@ article:not(:last-of-type) {
 }
 
 /**
+ * Form controls
+ */
+input:not([type="checkbox"]):not([type="radio"]),
+button,
+select {
+  display: inline-block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+  cursor: default;
+}
+
+label {
+  cursor: pointer;
+  user-select: none;
+}
+
+input[type="submit"],
+button {
+  background-color: #222;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background: #515151;
+}
+
+/**
  * Paginator control
  */
 .pagination {
@@ -164,6 +200,12 @@ article:not(:last-of-type) {
   padding: 0 1ch;
 }
 
+/*
+ * Search form
+ */
+input {
+  box-sizing: border-box;
+}
 /**
  * Helper classes
  */
@@ -181,4 +223,8 @@ article:not(:last-of-type) {
 
 .m-auto {
   margin: auto;
+}
+
+.w-100 {
+  width: 100%;
 }

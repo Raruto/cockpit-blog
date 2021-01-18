@@ -21,15 +21,15 @@ $last      = $per_page > 0 ? ceil( $num_rows / $per_page ) : 1;
 			@endif
 
 			@if ( $last < 7 + ( $adjacents * 2 ) )
-				<?php for ( $i = 1; $i <= $last; $i++ ) : ?>
+				@for( $i = 1; $i <= $last; $i++ )
 					<li><a href="{{ $url . $i }}"{{ ($i === $page_num ? ' class="active"' : '') }}>{{ $i }}</a></li>
-				<?php endfor ?>
+				@endfor
 			@elseif ( $last > 5 + ( $adjacents * 2 ) )
 				{{-- CLOSE TO BEGINNING: hide only later pages. --}}
 				@if ( $page_num < 1 + ( $adjacents * 2 ) )
-					<?php for ( $i = 1; $i < 4 + ( $adjacents * 2 ); $i++ ) : ?>
+					@for( $i = 1; $i < 4 + ( $adjacents * 2 ); $i++ )
 						<li><a href="{{ $url . $i }}"{{ ($i === $page_num ? ' class="active"' : '') }}>{{ $i }}</a></li>
-					<?php endfor; ?>
+					@endfor
 					<li>...</li>
 					<li><a href="{{ $url . ($last - 1) }}">{{ ($last - 1) }}</a></li>
 					<li><a href="{{ $url . $last }}">{{ $last }}</a></li>
@@ -38,9 +38,9 @@ $last      = $per_page > 0 ? ceil( $num_rows / $per_page ) : 1;
 					<li><a href="{{ $url }}1">1</a></li>
 					<li><a href="{{ $url }}2">2</a></li>
 					<li>...</li>
-					<?php for ( $i = $page_num - $adjacents; $i <= $page_num + $adjacents; $i++ ) : ?>
+					@for( $i = $page_num - $adjacents; $i <= $page_num + $adjacents; $i++ )
 						<li><a href="{{ $url . $i }}"{{ ($i === $page_num ? ' class="active"' : '') }}>{{ $i }}</a></li>
-					<?php endfor; ?>
+					@endfor
 					<li>...</li>
 					<li><a href="{{ $url . ($last - 1) }}">{{ ($last - 1) }}</a></li>
 					<li><a href="{{ $url . $last }}">{{ $last }}</a></li>
@@ -49,9 +49,9 @@ $last      = $per_page > 0 ? ceil( $num_rows / $per_page ) : 1;
 					<li><a href="{{ $url }}1">1</a></li>
 					<li><a href="{{ $url }}2">2</a></li>
 					<li>...</li>
-					<?php for ( $i = $last - ( 2 + ( $adjacents * 2 ) ); $i <= $last; $i++ ) : ?>
+					@for( $i = $last - ( 2 + ( $adjacents * 2 ) ); $i <= $last; $i++ )
 						<li><a href="{{ $url . $i }}"{{ ($i === $page_num ? ' class="active"' : '') }}>{{ $i }}</a></li>
-					<?php endfor; ?>
+					@endfor
 				@endif
 			@endif
 
