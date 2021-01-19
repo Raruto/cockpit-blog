@@ -197,6 +197,7 @@ function rrename( $path, $dest ) {
             \copy( "{$path}/{$file}", "{$dest}/{$file}" );
             // echo_flush( "copied: {$dest}/{$file}" );
           }
+          \chmod ( "{$dest}/{$file}", 0755 );
         }
       }
     return true;

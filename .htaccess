@@ -1,5 +1,5 @@
 # Disable directory listings
-Options -Indexes
+# Options -Indexes
 
 # URL rewrites
 <IfModule mod_rewrite.c>
