@@ -33,8 +33,7 @@ if ( PHP_SAPI == 'cli-server' ) {
     exit;
   }
   /* index files (eg. install/index.php) */
-  if ( is_file( $index ) && $_SERVER['REQUEST_URI'] != '/' ) {
+  if ( is_file( $index ) ) {
     include_once( $index );
-    exit;
   }
 }
