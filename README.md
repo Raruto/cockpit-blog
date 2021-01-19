@@ -50,6 +50,8 @@ Public stuffs are located at project web root (`_site`, `css`, `js` and `media` 
 - **Cockpit:**
     core files are located within the `admin` folder, you can rename it to something less "common" (without pain), but you shouldn't edit any other files inside that folder (unless you know what you're doing).
 
+Open a shell at project web root and run: `php -S localhost:8080 index.php` for starting the built-in development server.
+
 ### Cockpit Core:
 
 The following components are shipped by the CMS:

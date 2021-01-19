@@ -214,7 +214,7 @@ function rrename( $path, $dest ) {
     <title>System installation</title>
     <link rel="stylesheet" href="../css/app.css">
     <!-- redirect to cockpit install folder on complete. -->
-    <noscript><meta http-equiv="refresh" content="3;url=../<?php echo $COCKPIT; ?>/install"></noscript>
+    <noscript><meta http-equiv="refresh" content="3;url=../<?php echo $COCKPIT; ?>/install/"></noscript>
   </head>
   <body>
     <pre><?php
@@ -285,7 +285,7 @@ function rrename( $path, $dest ) {
     ?></pre>
     <!-- redirect to cockpit install folder on complete. -->
     <?php if ( $error === false ) : ?>
-      <script>setTimeout(function(){window.location.href = '../<?php echo $COCKPIT; ?>/install';},3000);</script>
+      <script>setTimeout(function(){window.location.href = '../<?php echo $COCKPIT; ?>/install/';},3000);</script>
     <?php endif; ?>
   </body>
 </html>

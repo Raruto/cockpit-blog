@@ -24,27 +24,8 @@ define('COCKPIT', 'admin');
 date_default_timezone_set('UTC');
 
 // handle php webserver (dev-only) [ php -S localhost:8080 index.php ]
-if ( PHP_SAPI == 'cli-server' ) {
-  $path  = __DIR__ . parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-  $index = rtrim( $path, '/') . '/index.php';
-  /* "dot" routes (see: https://bugs.php.net/bug.php?id=61286) */
-  $_SERVER['PATH_INFO'] = $_SERVER['REQUEST_URI'];
-  /* static files (eg. css/app.css) */
-  if ( is_file( $path ) ) {
-    return false;
-  }
-  /* index files (eg. install/index.php) */
-  if ( is_file( $index ) && $_SERVER['REQUEST_URI'] != '/' ) {
-    include_once( $index);
-    exit;
-  }
-  /* admin routes (eg. admin/api/get/collection/posts) */
-  if ( strpos( rtrim( $_SERVER['REQUEST_URI'], '/') . '/', '/'. COCKPIT . '/' ) === 0) {
-    str_replace( "/". COCKPIT, '', $_SERVER['REQUEST_URI'] );
-    str_replace( "/". COCKPIT, '', $_SERVER['PATH_INFO'] );
-    include_once( COCKPIT . '/index.php');
-    exit;
-  }
+if ( PHP_SAPI == 'cli-server' && !include_once( '.ht.router.php' )) {
+  return false;
 }
 
 // admin router
