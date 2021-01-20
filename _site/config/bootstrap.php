@@ -53,3 +53,26 @@ function highlight_str($text, $html = true) {
   }
   return $text;
 }
+
+/**
+ * "array_keys_last" polyfill (PHP < 7.3)
+ *
+ * @source https://www.php.net/manual/en/function.array-key-last.php
+ */
+ if( !function_exists('array_key_last') ) {
+   function array_key_last( array $array ) {
+     if( !empty( $array ) ) return key( array_slice( $array, -1, 1, true ) );
+     return null;
+   }
+}
+/**
+ * "array_keys_first" polyfill (PHP < 7.3)
+ *
+ * @source https://www.php.net/manual/en/function.array-key-first.php
+ */
+if ( !function_exists( 'array_key_first' ) ) {
+  function array_key_first( array $arr ) {
+    foreach( $arr as $key => $unused ) return $key;
+    return null;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "version": "https://jsonfeed.org/version/1.1",
   "title": "{{{ $app['app.name'] }}}",
-  "home_page_url": "{{{ $app['site_url'] }}}",
+  "home_page_url": "{{{ $app['site_url'] . $app['base_route'] }}}",
   "feed_url": "{{{ ($app['site_url'] . $app['base_route'] . $app['route']) }}}",
   "description": "{{{ $app['app.description'] }}}",
   @if( !empty( $app['author'] ) )
@@ -14,7 +14,7 @@
     {% $posts = cockpit('collections')->find('posts', [ 'filter' => [ 'published' => true ], 'sort' => [ '_created' => -1 ] ]); %}
     {% $last  = array_key_last($posts); %}
     @foreach($posts as $key => $post )
-      {% $post_url = $app['site_url'] . '/article/' . $post['slug']; %}
+      {% $post_url = $app['site_url'] . $app['base_route'] . '/article/' . $post['slug']; %}
       {
         "title": "{{{ (isset($post['title']) ? $post['title'] : '') }}}",
         "date_published": "{{{ \date('c', $post['_created']) }}}",

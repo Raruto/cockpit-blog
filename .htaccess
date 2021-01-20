@@ -23,7 +23,7 @@
   RewriteCond %{REQUEST_FILENAME} !-f
 
   # Rewrite all other URLs to index.php/
-  RewriteRule ^(.*)$ index.php/$1 [QSA,L]
+  RewriteRule . index.php [L]
 </IfModule>
 
 # Protect application and system files from being viewed

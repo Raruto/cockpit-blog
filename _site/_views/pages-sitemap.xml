@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<?xml-stylesheet type="text/xsl" href="@base('sitemap.xsl')"?>
+@<?xml version="1.0" encoding="UTF-8"@?>
+@<?xml-stylesheet type="text/xsl" href="@base('sitemap.xsl')"@?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
   {% $pages = cockpit('collections')->find('pages', [ 'filter' => [ 'published' => true ], 'sort' => [ '_created' => -1 ] ]); %}
   @foreach($pages as $page)

@@ -28,11 +28,16 @@ if ( PHP_SAPI == 'cli-server' && !include_once( '.ht.router.php' )) {
   return false;
 }
 
+// check cockpit dependency
+if( !file_exists( COCKPIT . '/bootstrap.php' ) ) {
+  exit( 'Cockpit not installed' );
+}
+
 // admin router
-// include_once( COCKPIT . '/index.php');
+// include_once( COCKPIT . '/index.php' );
 
 // cockpit library
-include_once( COCKPIT . '/bootstrap.php');
+include_once( COCKPIT . '/bootstrap.php' );
 
 /**
  * Lime App (frontend)
@@ -174,7 +179,8 @@ $app->renderer->extend(function($content) {
       'form'     => '<?php cockpit()->module("forms")->open(expr); ?>'          // @form(expr)
     ];
 
-    $content = preg_replace('/(\s*)@(endform)(\s*)/', '$1</form>$3', $content); // @endform
+    $content = preg_replace('/(\s*)@(end(form))(\s*)/', '$1</$2>$3', $content);          // @endform
+    $content = preg_replace('/(\s*)@(\<\?|\?\>)(\s*)/', '<?php echo "$2" ?>', $content); // escape php short tags
 
     $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
       if (isset($match[3]) && trim($match[1]) && isset($replace[$match[1]])) {
@@ -492,10 +498,11 @@ $cockpit->on('collections.find.before', function($name, &$options) {
   }
 });
 
-// Fired at the end of the {{ cockpit('collections')->find($collection, $options = []) }} function
-$cockpit->on('collections.find.after', function($name, &$entries) {
-
-});
+/**
+ * Set default route
+ */
+$route = ltrim(preg_replace('#'.preg_quote($app['base_route'], '#').'#', '', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), 1), '/' );
+$app->set('route', "/$route");
 
 /**
  * Start Lime App
