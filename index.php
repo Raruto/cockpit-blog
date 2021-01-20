@@ -28,16 +28,15 @@ if ( PHP_SAPI == 'cli-server' && !include_once( '.ht.router.php' )) {
   return false;
 }
 
-// check cockpit dependency
-if( !file_exists( COCKPIT . '/bootstrap.php' ) ) {
-  exit( 'Cockpit not installed' );
-}
-
 // admin router
 // include_once( COCKPIT . '/index.php' );
 
 // cockpit library
-include_once( COCKPIT . '/bootstrap.php' );
+if( file_exists( COCKPIT . '/bootstrap.php' ) ) {
+  include( COCKPIT . '/bootstrap.php' );
+} else {
+  exit( 'Cockpit not installed' );
+}
 
 /**
  * Lime App (frontend)
@@ -51,22 +50,23 @@ include_once( COCKPIT . '/bootstrap.php' );
  */
 $app = new LimeExtra\App(
   [
-    'debug'            => preg_match('/(localhost|::1|\.local)$/', @$_SERVER['SERVER_NAME']),
-    'debug.info'       => defined('DEBUG_DISPLAY') && DEBUG_DISPLAY,
+    'debug'            => $cockpit['debug'],
+    'debug.info'       => $cockpit['debug'] && defined('DEBUG_DISPLAY') && DEBUG_DISPLAY,
 
     'app.name'         => 'Cockpit Blog',
     'app.short_name'   => 'Cockpit',
     'app.description'  => 'Just a simple Cockpit Blog',
 
     'meta.robots'      => 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1',
-    'meta.generator'   => 'cockpit-next v' . \json_decode($cockpit->helper('fs')->read('#root:package.json'), true)['version'],
+    'meta.generator'   => $cockpit['debug'] ? 'cockpit-next v' . \json_decode($cockpit->helper('fs')->read('#root:package.json'), true)['version'] : '',
 
     'matomo.url'       => $cockpit->getSiteUrl(true) . '/analytics/matomo/',
     'matomo.id'        => '1',
 
     'pagination.limit' => '5',
 
-    // 'session.name'  => md5(str_replace(DIRECTORY_SEPARATOR, '/', __DIR__)),
+    'session.name'     => $cockpit['session.name'],
+    'sec-key'          => $cockpit['sec-key'],
 
     // 'base_url'      => implode('/', \array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)),
     // 'base_route'    => implode('/', \array_slice(explode('/', $_SERVER['SCRIPT_NAME']), 0, -1)),
@@ -76,8 +76,6 @@ $app = new LimeExtra\App(
     // 'site_url'      => null
     // 'route'         => $_SERVER['PATH_INFO'] ?? '/',
     // 'docs_root'     => str_replace(DIRECTORY_SEPARATOR, '/', isset($_SERVER['DOCUMENT_ROOT']) ? \realpath($_SERVER['DOCUMENT_ROOT']) : \dirname($_SERVER['SCRIPT_FILENAME'])),
-
-    // 'sec-key'       => 'xxxxx-SiteSecKeyPleaseChangeMe-xxxxx',
 
     // 'i18n'          => 'en',
     // 'charset'       => 'UTF-8',
@@ -118,6 +116,11 @@ $app = new LimeExtra\App(
     //   'coockie'   => 'LimeExtra\\Helper\\Cookie',
     //   'yaml'      => 'LimeExtra\\Helper\\YAML',
     // ]
+
+    // 'debug'         => preg_match('/(localhost|::1|\.local)$/', @$_SERVER['SERVER_NAME']),
+
+    // 'sec-key'       => 'xxxxx-SiteSecKeyPleaseChangeMe-xxxxx',
+    // 'session.name'  => md5(str_replace(DIRECTORY_SEPARATOR, '/', __DIR__)),
 ]);
 
 /**

@@ -1,8 +1,8 @@
 <?php
 /**
- * TODO: Contact form validation.
+ * Contact form validation.
  *
- * use "contact.php" for a form named "contact"
+ * use { contact.php } for a form named "contact"
  *
  * @link https://github.com/raffaelj/cockpit-scripts/blob/master/form-validation/contact.php
  * @link https://github.com/COCOPi/cockpit-docs/blob/master/modules/forms.md

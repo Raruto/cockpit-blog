@@ -7,7 +7,7 @@
 <meta name="title" content="{{{ (!empty( $page['title'] ) ? $page['title'] . ' | ' : '') . $app['app.name'] }}}">
 <meta name="description" content="{{{ strip_tags( !empty($page['excerpt']) ? $page['excerpt'] : $app['app.description'] ) }}}">
 <meta name="robots" content="{{{ !empty($page['meta.robots']) ? $page['meta.robots'] : $app['meta.robots'] }}}">
-@if($app['debug'])
+@if(!empty($app['meta.generator']))
 <meta name="generator" content="{{{ $app['meta.generator'] }}}">
 @endif
 

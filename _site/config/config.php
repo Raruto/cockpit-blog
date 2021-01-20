@@ -11,8 +11,8 @@ return [
 
   // List of supported languages for field localization (eg. title_en, title_it, ...).
   'languages' => [
-    // 'default' => 'English'
-    // 'it'      => 'Italian'
+    'default' => 'English',
+    'it'      => 'Italian'
   ],
 
   // Add another "addons" folder in addition to default one (eg. /admin/addons <--> /_site/addons )
@@ -50,14 +50,14 @@ return [
   // Cockpit uses PHPMailer as a utility for sending email
   // see: http://phpmailer.github.io/PHPMailer/
   // 'mailer' => [
-  //   'from'       => 'contactform@example.com'
-  //   'from_name'  => 'MyApp'
-  //   'transport'  => 'smtp'
-  //   'host'       => 'smtphost.provider.com'
-  //   'user'       => 'fancy-username'
-  //   'password'   => 'SuperSafePassword'
-  //   'port'       => 587
-  //   'auth'       => true
+  //   'from'       => 'contactform@example.com',
+  //   'from_name'  => 'MyApp',
+  //   'transport'  => 'smtp',
+  //   'host'       => 'smtphost.provider.com',
+  //   'user'       => 'fancy-username',
+  //   'password'   => 'SuperSafePassword',
+  //   'port'       => 587,
+  //   'auth'       => true,
   //   'encryption' => 'starttls'
   // ]
 ];
