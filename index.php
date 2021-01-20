@@ -179,7 +179,7 @@ $app->renderer->extend(function($content) {
       'form'     => '<?php cockpit()->module("forms")->open(expr); ?>'          // @form(expr)
     ];
 
-    $content = preg_replace('/(\s*)@(end(form))(\s*)/', '$1</$2>$3', $content);          // @endform
+    $content = preg_replace('/(\s*)@end(form)(\s*)/', '$1</$2>$3', $content);          // @endform
     $content = preg_replace('/(\s*)@(\<\?|\?\>)(\s*)/', '<?php echo "$2" ?>', $content); // escape php short tags
 
     $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
