@@ -21,9 +21,12 @@ if ( PHP_SAPI == 'cli-server' ) {
     if ( $path["extension"] == "tag" ) {
       header( "Content-Type: application/javascript" );
       readfile( $file );
-      exit;
     }
     return false;
+  }
+  /* index files (eg. install/index.php) */
+  if ( is_file( $index ) ) {
+    include_once( $index );
   }
   /* admin routes (eg. admin/api/get/collection/posts) */
   if ( strpos( rtrim( $_SERVER['REQUEST_URI'], '/') . '/', '/'. COCKPIT . '/' ) === 0) {
@@ -31,9 +34,5 @@ if ( PHP_SAPI == 'cli-server' ) {
     str_replace( "/". COCKPIT, '', $_SERVER['PATH_INFO'] );
     include_once( COCKPIT . '/index.php');
     exit;
-  }
-  /* index files (eg. install/index.php) */
-  if ( is_file( $index ) ) {
-    include_once( $index );
   }
 }

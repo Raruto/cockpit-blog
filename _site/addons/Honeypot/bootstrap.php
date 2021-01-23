@@ -29,6 +29,13 @@ $app->module('forms')->extend([
   },
 ]);
 
+// $app->on('forms.open.after', function($name, &$options) {
+//     $frm = $this->module('forms')->form($name);
+//     if( !empty( $frm['honeypot'] ) ) {
+//       $this->renderView( 'honeypot:views/honeypot.php' );
+//     }
+// });
+
 /**
  * Custom form validation hook
  *

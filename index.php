@@ -179,10 +179,8 @@ $app->renderer->extend(function($content) {
     $replace = [
       'dump'     => '<?php echo highlight_str(expr); ?>',                       // @dump(expr)
       'json'     => '<?php echo json_encode(expr); ?>',                         // @json(expr)
-      'form'     => '<?php cockpit()->module("forms")->open(expr); ?>'          // @form(expr)
     ];
 
-    $content = preg_replace('/(\s*)@end(form)(\s*)/', '$1</$2>$3', $content);          // @endform
     $content = preg_replace('/(\s*)@(\<\?|\?\>)(\s*)/', '<?php echo "$2" ?>', $content); // escape php short tags
 
     $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
@@ -194,6 +192,26 @@ $app->renderer->extend(function($content) {
 
     return $content;
  });
+
+// Extend Lexy Parser
+$app->renderer->extend(function($content) {
+
+     $replace = [
+         'form'    => '<?php cockpit()->module("forms")->open(expr); ?>', // @form(expr)
+         'endform' => '<?php cockpit()->module("forms")->close(expr); ?>', // @endform(expr)
+     ];
+
+     $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
+         if (trim($match[1]) && isset($replace[$match[1]])) {
+             return str_replace('(expr)', isset($match[3]) ? $match[3] : '()', $replace[$match[1]]);
+         }
+         return $match[0];
+     }, $content);
+
+     return $content;
+
+});
+
 
 /**
  * Render ROUTES
