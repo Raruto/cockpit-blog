@@ -12,7 +12,7 @@
 
 // check required fields
 if ( empty( $data['name'] ) || empty( $data['email'] ) || empty( $data['message'] ) || empty( $data['privacy'] ) ) {
-  $this->stop( [ 'error' => 'Invalid form' ], 412 );
+  $this->app->stop( [ 'error' => 'Invalid form' ], 412 );
 }
 
 // validate response
