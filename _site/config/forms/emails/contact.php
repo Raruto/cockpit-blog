@@ -2,17 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
   <strong>{{ cockpit()->helper('i18n')->get('Request details:'); }}</strong>
-  <dl>
-    @foreach($data as $key => $value)
-      <dt>{{{ $key }}}:</dt>
-      <dd>
-        @if(is_string($value))
-          {{{ $value }}}
-        @else
-          @json($value)
-        @endif
-      </dd>
-    @endforeach
-  </dl>
+  @foreach($data as $key => $value)
+    <p><strong>{{ $key }}:</strong> {{ (is_string($value) ? $value : json_encode($value)) }}</p>
+  @endforeach
 </body>
 </html>

@@ -24,7 +24,7 @@ define('COCKPIT', 'admin');
 date_default_timezone_set('UTC');
 
 // handle php webserver (dev-only) [ php -S localhost:8080 index.php ]
-if ( PHP_SAPI == 'cli-server' && !include_once( '.ht.router.php' )) {
+if ( PHP_SAPI == 'cli-server' && false === include_once( '.ht.router.php' )) {
   return false;
 }
 
@@ -196,22 +196,21 @@ $app->renderer->extend(function($content) {
 // Extend Lexy Parser
 $app->renderer->extend(function($content) {
 
-     $replace = [
-         'form'    => '<?php cockpit()->module("forms")->open(expr); ?>', // @form(expr)
-         'endform' => '<?php cockpit()->module("forms")->close(expr); ?>', // @endform(expr)
-     ];
+   $replace = [
+       'form'    => '<?php cockpit()->module("forms")->open(expr); ?>', // @form(expr)
+       'endform' => '<?php cockpit()->module("forms")->close(expr); ?>', // @endform(expr)
+   ];
 
-     $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
-         if (trim($match[1]) && isset($replace[$match[1]])) {
-             return str_replace('(expr)', isset($match[3]) ? $match[3] : '()', $replace[$match[1]]);
-         }
-         return $match[0];
-     }, $content);
+   $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
+       if (trim($match[1]) && isset($replace[$match[1]])) {
+           return str_replace('(expr)', isset($match[3]) ? $match[3] : '()', $replace[$match[1]]);
+       }
+       return $match[0];
+   }, $content);
 
-     return $content;
+   return $content;
 
 });
-
 
 /**
  * Render ROUTES

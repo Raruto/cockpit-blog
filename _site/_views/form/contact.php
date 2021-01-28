@@ -27,6 +27,13 @@
       </label>
       <textarea name="form[message]" id="message" placeholder="" rows="5" required></textarea>
     </div>
+    <div>
+      <label for="files">
+        @lang('File')
+      </label>
+      <input type="hidden" name="MAX_FILE_SIZE" value="100000">
+      <input name="files[]" type="file">
+    </div>
     <p>
       <input type="checkbox" name="form[privacy]" id="privacy" required>
       <label for="privacy">

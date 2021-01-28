@@ -1,33 +1,9 @@
-# Disable directory listings
-# Options -Indexes
+#
+# Apache/PHP/Cockpit settings:
+#
 
-# URL rewrites
-<IfModule mod_rewrite.c>
-  # Disable implicit filename pattern match
-  Options -MultiViews
-
-  # Turn on URL rewriting
-  RewriteEngine On
-
-  # Installation directory
-  # RewriteBase /cockpit-blog/
-
-  # Protect application and system files from being viewed
-  # RewriteRule ^(admin|\.|_views) - [F,L]
-
-  # TODO: internal rewrite (proxy) to admin API url.
-  # RewriteRule ^api/?(.*)$ admin/index.php/$1 [QSA,L]
-
-  # Allow any files or directories that exist to be displayed directly
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-f
-
-  # Rewrite all other URLs to index.php/
-  RewriteRule . index.php [L]
-</IfModule>
-
-# Protect application and system files from being viewed
-<FilesMatch "((composer|package)\.json|(README|CONTRIBUTING)\.md|cp|Dockerfile|LICENSE|\.(sqlite|sdb|s3db|db|yaml|yml))$">
+# Deny access to application and system files from being viewed
+<FilesMatch "(composer\.(json|lock)|package\.json|(README|CONTRIBUTING)\.md|cp|Dockerfile|LICENSE|\.(sqlite|sdb|s3db|db|yaml|yml))$">
   <IfVersion >= 2.4>
      Require all denied
   </IfVersion>
@@ -36,14 +12,35 @@
   </IfVersion>
 </FilesMatch>
 
-<Files ".*">
-    <IfVersion >= 2.4>
-       Require all denied
-    </IfVersion>
-    <IfVersion < 2.4>
-       Deny from all
-    </IfVersion>
-</Files>
+# Disable directory listings
+Options -Indexes
+
+# Requires mod_rewrite to be enabled
+<IfModule mod_rewrite.c>
+
+    # Disable implicit filename pattern match
+    Options -MultiViews
+
+    # Turn on URL rewriting
+    RewriteEngine On
+
+    # Installation directory (web root)
+    # RewriteBase /
+
+    # Installation directory (subfolder)
+    # RewriteBase /cockpit/
+
+    # Deny access to files and directories whose names begin with a period
+    RewriteRule "/\.|^\.(?!well-known/)" - [F]
+
+    # Allow any files or directories that exist to be displayed directly
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Rewrite all other URLs to index.php
+    RewriteRule .* index.php [L]
+
+</IfModule>
 
 AddDefaultCharset utf-8
 
