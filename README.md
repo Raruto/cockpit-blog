@@ -83,6 +83,7 @@ The following plugins are bundled in this repository:
 
 - [Autosave](_site/addons/Autosave)
 - [BetterSlugs](_site/addons/BetterSlugs)
+- [ExtendedForms](_site/addons/ExtendedForms)
 - [Honeypot](_site/addons/Honeypot)
 - [ImageOptimizer](_site/addons/ImageOptimizer)
 - [LivePreview](_site/addons/LivePreview)
