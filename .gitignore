@@ -12,3 +12,7 @@ admin/**
 !admin/addons/**
 !admin/config/**
 !admin/storage/**
+
+# Composer
+/vendor
+/composer.lock

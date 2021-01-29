@@ -1,0 +1,12 @@
+{
+    "require": {
+        "php": ">= 7.3",
+        "composer/installers": "^1.10",
+        "raruto/cockpit-native-lazy-loading": "^0.0.1"
+    },
+    "extra": {
+        "installer-paths": {
+            "_site/addons/{$name}": ["type:cockpit-module"]
+        }
+    }
+}
