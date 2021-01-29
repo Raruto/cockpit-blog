@@ -1,0 +1,24 @@
+{
+    "name": "raruto/cockpit-honeypot",
+    "description": "Honeypot addon for Cockpit CMS",
+    "homepage": "https://github.com/Raruto/cockpit-honeypot/",
+    "keywords": ["cockpit", "forms", "addon"],
+    "type": "cockpit-module",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Raruto",
+            "homepage": "https://raruto.github.io/"
+        }
+    ],
+    "require": {
+        "php": ">= 7.3",
+        "composer/installers": "^1.10"
+    },
+    "suggest": {
+        "aheinze/cockpit": "Please install Cockpit before installing this addon"
+    },
+    "extra": {
+        "installer-name": "Honeypot"
+    }
+}

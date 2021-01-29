@@ -8,33 +8,51 @@
  */
 
 /**
- * Save default form "open" function for later override.
- *
- * @see { cockpit/modules/forms/bootstrap.php }
- */
-$OPEN = $app->module('forms')->open;
+* Helper function to generate unique honeypot names
+*/
+$app->module('honeypot')->extend([
+
+    'getHoneypotFieldName' => function($name) {
+        return "hp-$name";
+    },
+
+]);
 
 /**
  * Append "honeypot" field to cockpit forms api
  *
+ * @link https://github.com/Raruto/cockpit-extended-forms
  * @see { cockpit( 'forms:open' , 'form-name' ) }
  */
-$app->module('forms')->extend([
-  'open' => function($name, $options = []) use($OPEN) {
-    $frm = $this->form($name);
-    $OPEN($name, $options);
-    if( !empty( $frm['honeypot'] ) ) {
-      $this->app->renderView( 'honeypot:views/honeypot.php' );
-    }
-  },
-]);
+if ($app->module('extendedforms')) {
 
-// $app->on('forms.open.after', function($name, &$options) {
-//     $frm = $this->module('forms')->form($name);
-//     if( !empty( $frm['honeypot'] ) ) {
-//       $this->renderView( 'honeypot:views/honeypot.php' );
-//     }
-// });
+    $app->on('forms.open.after', function($name, &$options) {
+        $frm = $this->module('forms')->form($name);
+        if (!empty($frm['honeypot'])) {
+          $this->renderView('honeypot:views/honeypot.php', ['name' => $name]);
+        }
+    });
+
+} else {
+
+    /**
+     * Save default form "open" function for later override.
+     *
+     * @see { cockpit/modules/forms/bootstrap.php }
+     */
+    $OPEN = $app->module('forms')->open;
+
+    $app->module('forms')->extend([
+      'open' => function($name, $options = []) use($OPEN) {
+        $frm = $this->form($name);
+        $OPEN($name, $options);
+        if(!empty($frm['honeypot'])) {
+          $this->app->renderView('honeypot:views/honeypot.php');
+        }
+      },
+    ]);
+
+}
 
 /**
  * Custom form validation hook
@@ -49,17 +67,28 @@ $app->module('forms')->extend([
  * @see { cockpit/modules/forms/bootstrap.php }
  */
 $app->on('forms.submit.before', function($form, &$data, $frm, &$options) {
-  // check [ "honeypot" => true ] in form collection
-  if ( !empty( $frm['honeypot'] ) ) {
-    // validate "honeypot" field in submitted entry
-    if ( !empty( $data['cfw-name'] ) ) {
-      $this->stop(200);
-    }
-    // exclude "honeypot" field from saved entries
-    unset( $data['cfw-name'] );
+
+  // check for [ "honeypot" => true ] in form collection
+  if (empty( $frm['honeypot']))  return;
+
+  $hp_name = $this->module('honeypot')->getHoneypotFieldName($form);
+
+  // validate "honeypot" field in submitted entry
+  if (!empty($data[$hp_name])) {
+    $this->stop(200);
   }
+  // exclude "honeypot" field from saved entries
+  unset($data[$hp_name]);
+
 });
 
-$app->on('forms.settings.aside', function() use ($app) {
-	echo $app->view( 'honeypot:views/settings-field.php' );
+/**
+ * Add honeypot button to form settings
+ *
+ * @return void
+ *
+ * @see { cockpit/modules/forms/views/form.php }
+ */
+$app->on('forms.settings.aside', function() {
+    $this->app->renderView('honeypot:views/settings-field.php');
 });
