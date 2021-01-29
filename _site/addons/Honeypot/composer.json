@@ -2,7 +2,7 @@
     "name": "raruto/cockpit-honeypot",
     "description": "Honeypot addon for Cockpit CMS",
     "homepage": "https://github.com/Raruto/cockpit-honeypot/",
-    "keywords": ["cockpit", "forms", "addon"],
+    "keywords": ["cockpit", "forms", "honeypot", "addon"],
     "type": "cockpit-module",
     "license": "MIT",
     "authors": [

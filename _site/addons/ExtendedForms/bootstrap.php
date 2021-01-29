@@ -51,7 +51,7 @@ $app->module('forms')->extend([
 
         // $FORMS_OPEN($name, $options);
 
-        $this->app->renderView('forms:views/api/form.php', compact('name', 'options'));
+        $this->app->renderView('extendedforms:views/api/form.php', compact('name', 'options'));
 
         $this->app->trigger("forms.open.after", [$name, &$options]);
 
