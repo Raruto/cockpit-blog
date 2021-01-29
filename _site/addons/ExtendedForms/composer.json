@@ -1,8 +1,8 @@
 {
-    "name": "raruto/cockpit-native-lazy-loading",
-    "description": "Native lazy loading module for Cockpit CMS",
-    "homepage": "https://github.com/Raruto/cockpit-native-lazy-loading/",
-    "keywords": ["cockpit", "lazy-loading", "addon"],
+    "name": "raruto/cockpit-extended-forms",
+    "description": "Extended forms addon for Cockpit CMS",
+    "homepage": "https://github.com/Raruto/cockpit-extended-forms/",
+    "keywords": ["cockpit", "forms", "addon"],
     "type": "cockpit-module",
     "license": "MIT",
     "authors": [
@@ -19,6 +19,6 @@
         "aheinze/cockpit": "Please install Cockpit before installing this addon"
     },
     "extra": {
-        "installer-name": "NativeLazyLoading"
+        "installer-name": "ExtendedForms"
     }
 }

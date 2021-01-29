@@ -6,23 +6,189 @@
  * @package cockpit-blog
  * @license MIT
  *
- * REQUIRES:
- * - https://github.com/agentejo/cockpit/pull/1399
- * - https://github.com/agentejo/cockpit/pull/1400
+ * @see https://github.com/agentejo/cockpit/pull/1411
+ * @see https://github.com/agentejo/cockpit/pull/1399
+ * @see https://github.com/agentejo/cockpit/pull/1400
  */
+
+/**
+ * Autoload helpers by Lime\App::loadModules()
+ */
+$this->helpers['extendedforms'] = 'ExtendedForms\\Helper\\Utils';
+
+/**
+* You can also save default "Forms" prototypes for later override.
+*
+* @see { cockpit/modules/forms/bootstrap.php }
+*/
+$FORMS_OPEN   = $app->module('forms')->open;
+$FORMS_SUBMIT = $app->module('forms')->submit;
+
+/**
+ * Extend core "Forms" module beahvior.
+ */
+$app->module('forms')->extend([
+
+     /**
+      * Override core "Forms::open" beahvior.
+      *
+      * @see https://github.com/agentejo/cockpit/pull/1400
+      */
+    'open' => function($name, $options = []) use ($FORMS_OPEN) {
+
+        $this->app->trigger("forms.open.before", [$name, &$options]);
+
+        $options = array_merge([
+            'id'          => uniqid('form'),
+            'class'       => '',
+            'action'      => $this->app->routeUrl('/api/forms/submit/'.$name),
+            'method'      => 'post',
+            'enctype'     => 'multipart/form-data',
+            'csrf'        => $this->app->hash($name),
+            'mailsubject' => false,
+            'include_js'  => true
+        ], $options);
+
+        // $FORMS_OPEN($name, $options);
+
+        $this->app->renderView('forms:views/api/form.php', compact('name', 'options'));
+
+        $this->app->trigger("forms.open.after", [$name, &$options]);
+
+    },
+
+    /**
+     * Add custom "Forms::close" function.
+     *
+     * @see https://github.com/agentejo/cockpit/pull/1400
+     */
+    'close' => function($name = null, $options = []) {
+
+        $this->app->trigger("forms.close.before", [$name, &$options]);
+        echo '</form>';
+        $this->app->trigger("forms.close.after", [$name, &$options]);
+
+    },
+
+    /**
+     * Override core "Forms::submit" beahvior.
+     *
+     * @see https://github.com/agentejo/cockpit/pull/1399
+     */
+    'submit' => function($form, $data, $options = []) use ($FORMS_SUBMIT) {
+
+        $frm = $this->form($form);
+
+        // Invalid form name
+        if (!$frm) {
+            return false;
+        }
+
+        // Load custom form validator
+        if ($this->app->path("#config:forms/{$form}.php") && false === include($this->app->path("#config:forms/{$form}.php"))) {
+            return false;
+        }
+
+        // Filter submitted data
+        $this->app->trigger('forms.submit.before', [$form, &$data, $frm, &$options]);
+
+        // Send email
+        if (isset($frm['email_forward']) && $frm['email_forward']) {
+
+            $emails          = array_map('trim', explode(',', $frm['email_forward']));
+            $filtered_emails = [];
+
+            // Validate each email address individually, push if valid
+            foreach ($emails as $to) {
+                if ($this->app->helper('utils')->isEmail($to)){
+                    $filtered_emails[] = $to;
+                }
+            }
+
+            if (count($filtered_emails)) {
+
+                $frm['email_forward'] = implode(',', $filtered_emails);
+
+                // Load custom email template
+                if ($template = $this->app->path("#config:forms/emails/{$form}.php")) {
+                    $body = $this->app->view($template, ['data' => $data, 'frm' => $frm]);
+                }
+
+                // Filter email content
+                $this->app->trigger('forms.submit.email', [$form, &$data, $frm, &$body, &$options]);
+
+                // Fallback to default email template
+                if (empty($body)) {
+                    $body = $this->app->view("extendedforms:views/api/email.php", ['data' => $data, 'frm' => $frm]);
+                }
+
+                $formname = isset($frm['label']) && trim($frm['label']) ? $frm['label'] : $form;
+                $to       = $frm['email_forward'];
+                $subject  = $options['subject'] ?? $this->app->helper('i18n')->getstr("New form data for: %s", [$formname]);
+
+                // success = true
+                try {
+                    $response = $this->app->mailer->mail($to, $subject, $body, $options);
+                } catch (\Exception $e) {
+                    $response = $e->getMessage();
+                }
+            }
+        }
+
+        // Push entry to database
+        if (isset($frm['save_entry']) && $frm['save_entry']) {
+            $entry = ['data' => $data];
+            $this->save($form, $entry);
+        }
+
+        // Generate response array
+        $response = (isset($response) && $response !== true) ? ['error' => $response, 'data' => $data] : $data;
+
+        // Filter submission response
+        $this->app->trigger('forms.submit.after', [$form, &$data, $frm, &$response]);
+
+        return $response;
+    }
+
+]);
+
+/**
+* Extend Lexy Parser (templating engine)
+*
+* @link https://cpmultiplane.rlj.me/en/docs/lexy with available language structures
+* @see { cockpit/lib/Lexy.php | cockpit/bootsrap.php }
+*/
+$app->renderer->extend(function($content) {
+
+    $replace = [
+        'form'    => '<?php cockpit()->module("forms")->open(expr); ?>', // @form(expr)
+        'endform' => '<?php cockpit()->module("forms")->close(expr); ?>', // @endform(expr)
+    ];
+
+    $content = preg_replace_callback('/\B@(\w+)([ \t]*)(\( ( (?>[^()]+) | (?3) )* \))?/x', function($match) use($replace) {
+        if (trim($match[1]) && isset($replace[$match[1]])) {
+            return str_replace('(expr)', isset($match[3]) ? $match[3] : '()', $replace[$match[1]]);
+        }
+        return $match[0];
+    }, $content);
+
+    return $content;
+
+});
 
 /**
  * Check and populate forms $data['files'] entry
  *
  * @return array $folder
  */
-$app->on('forms.submit.before', function($form, &$data, $frm, &$options) use ($app) {
+$app->on('forms.submit.before', function($form, &$data, $frm, &$options) {
 
-    $files = get_uploaded_files();
+    $forms = $this->helper('extendedforms');
+    $files = $forms->get_uploaded_files();
 
     if (!empty($files)) {
 
-        $files = $app->module('cockpit')->uploadAssets('files', ['folder' => get_forms_uploads_folder()]);
+        $files = $this->module('cockpit')->uploadAssets('files', ['folder' => $forms->get_forms_uploads_folder()]);
 
         // save entries as filename
         $data['files'] = $files['uploaded'];
@@ -38,53 +204,3 @@ $app->on('forms.submit.before', function($form, &$data, $frm, &$options) use ($a
     }
 
 });
-
-/**
- * Check and retrieve forms uploaded files
- *
- * @return array $data
- */
-function get_uploaded_files() {
-    $app    = cockpit();
-
-    $files  = $app->param('files', [], $_FILES);
-    $data   = [];
-
-    if (isset($files['name']) && is_array($files['name'])) {
-      for ($i = 0; $i < count($files['name']); $i++) {
-        if (is_uploaded_file($files['tmp_name'][$i]) && !$files['error'][$i]) {
-            foreach($files as $k => $v) {
-                $data['files'][$k]   = $data['files'][$k] ?? [];
-                $data['files'][$k][] = $files[$k][$i];
-            }
-        }
-      }
-    }
-
-    return $data;
-}
-
-/**
- * Check and retrieve forms upload folder
- *
- * @return array $folder
- */
-function get_forms_uploads_folder() {
-    $app    = cockpit();
-
-    $name   = 'forms_uploads';
-    $parent = '';
-    $folder = $app->storage->findOne('cockpit/assets_folders', ['name'=>$name, '_p'=>$parent]);
-
-    if (empty($folder)) {
-      $user   = $app->storage->findOne('cockpit/accounts', ['group'=>'admin'], ['_id' => 1]);
-      $meta   = [
-          'name' => $name,
-          '_p'   => $parent,
-          '_by'  => $user['_id'] ?? '',
-      ];
-      $folder = $app->storage->save('cockpit/assets_folders', $meta);
-    }
-
-    return $folder;
-}

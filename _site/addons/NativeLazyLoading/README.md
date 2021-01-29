@@ -1,12 +1,18 @@
 # cockpit-native-lazy-loading
 
-Native lazy loading module for [Cockpit CMS](http://getcockpit.com/)
+Native lazy loading addon for [Cockpit CMS](http://getcockpit.com/)
+
+## Features
+
+Automatically add [`img[loading="lazy"]`](https://web.dev/browser-level-image-lazy-loading/) attribute to content images (tinymce and html-editor).
+
+Natively supported by the most popular browsers (Chrome, Edge, Opera and Firefox) without the need to use a separate JavaScript library. [Browsers](https://caniuse.com/#feat=loading-lazy-attr) that do not support the loading attribute simply ignore it without side-effects.
 
 ## Installation
 
 ### Manual
 
-Download [latest release](https://github.com/Raruto/cockpit-native-lazy-loading) and extract to `COCKPIT_PATH/addons/NativeLazyLoading` directory
+Download [latest release](https://github.com/Raruto/cockpit-native-lazy-loading/releases/latest) and extract to `COCKPIT_PATH/addons/NativeLazyLoading` directory
 
 ### Git
 
