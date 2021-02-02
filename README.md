@@ -27,7 +27,7 @@ Simple blog implementation with a router
 Public stuffs are located at project web root (`_site`, `css`, `js` and `media` folders).
 
 - **Theme:**
-    php template files are located in the `_site/_views` folder.
+    php template files are located in the `_site/theme/views` folder.
 
 - **Assets:**
     static theme files are located at project web root (`css`, `js`, `media` folders).
