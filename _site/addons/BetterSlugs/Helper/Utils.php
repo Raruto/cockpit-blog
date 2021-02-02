@@ -38,7 +38,8 @@ class Utils extends \Lime\Helper {
             $part = '';
             if ($lang && isset($entry["{$tokenValue}_{$lang}"])) {
               $part = $entry["{$tokenValue}_{$lang}"];
-            } elseif (isset($entry[$tokenValue])) {
+            }
+            elseif (isset($entry[$tokenValue])) {
               $part = $entry[$tokenValue];
             }
             break;
@@ -57,7 +58,8 @@ class Utils extends \Lime\Helper {
               if ($linkedEntry && isset($linkedEntry[$colField]) && !is_array($linkedEntry[$colField])) {
                 if (isset($linkedEntry["{$colField}_{$lang}"])) {
                   $part = $linkedEntry["{$colField}_{$lang}"];
-                } else {
+                }
+                else {
                   $part = $linkedEntry[$colField];
                 }
               }
@@ -106,7 +108,8 @@ class Utils extends \Lime\Helper {
     if ($_id) {
       if ($this->app->storage->type === 'mongodb') {
         $criteria['_id'] = ['$ne' => new \MongoDB\BSON\ObjectID($_id)];
-      } else {
+      }
+      else {
         $criteria['_id'] = ['$ne' => $_id];
       }
     }
@@ -119,7 +122,8 @@ class Utils extends \Lime\Helper {
       // Second check as we have now the numeric prefix value.
       if ($this->app->storage->type === 'mongodb') {
         $criteria[$fieldName] = new \MongoDB\BSON\Regex("^{$_slug}-[0-9]+$");
-      } else {
+      }
+      else {
         $criteria[$fieldName] = ['$regex' => "/^{$_slug}-[0-9]+$/"];
       }
       $count = $this->app->module('collections')->count($name, $criteria);
@@ -133,3 +137,4 @@ class Utils extends \Lime\Helper {
   }
 
 }
+

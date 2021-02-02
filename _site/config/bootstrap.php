@@ -16,11 +16,6 @@
  * - #config:tags/{$component}.tag                                # custom uikit tag
  */
 
-// Collection settings
-$app->on('collections.settings.aside', function() use ($app) {
- $app->renderView( '#config:cockpit/views/collection.settings.php' );
-});
-
 /**
 * Pretty print php vars.
 *

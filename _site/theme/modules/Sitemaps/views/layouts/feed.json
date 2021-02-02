@@ -1,0 +1,54 @@
+{%
+
+$feed = [
+    "version"       => "https://jsonfeed.org/version/1.1",
+    "title"         => $app['app.name'],
+    "home_page_url" => $app['site_url'] . $app['base_route'],
+    "feed_url"      => $app['site_url'] . $app['base_route'] . $app['route'],
+    "description"   => $app['app.description'],
+];
+
+if ( !empty( $app['author'] ) ) {
+    $feed["author"] = [
+        "name"  => $app['author']['name'] ?? '',
+        "email" => $app['author']['email'] ?? '',
+    ];
+}
+
+$feed['items'] = [];
+
+$items = cockpit('collections')->find($id, [ 'filter' => [ 'published' => true ], 'sort' => [ '_created' => -1 ] ]);
+$last  = array_key_last($items);
+
+foreach($items as $key => $item ) {
+  $item_url = $app['site_url'] . $app['base_route'] . $base_url . $item['slug'];
+
+  $_item = [
+    "title"          => (isset($item['title']) ? $item['title'] : ''),
+    "date_published" => \date('c', $item['_created']),
+    "date_modified"  => \date('c', ($item['_modified']) ?? $item['_created']),
+    "id"             => $item_url,
+    "url"            => $item_url,
+  ];
+
+  if ( isset( $item['author'] ) || !empty( $item['author'] ) ) {
+      $_item["author"] = [ "name" => $item['author'] ?? $item['author']['name'] ];
+  }
+
+  if ( isset( $item['excerpt'] ) ) {
+      $_item["summary"] = $item['excerpt'];
+  }
+
+  if (!empty($item['tags'])) {
+      $_item["tags"] = $item['tags'];
+  }
+
+  $_item["content_text"] = preg_replace('/\s+/', ' ', trim(strip_tags( $item['content'] )));
+  $_item["content_html"] = preg_replace('/\s+/', ' ', trim($item['content'] ));
+
+  $feed['items'][] = $_item;
+}
+
+echo json_encode($feed);
+
+%}

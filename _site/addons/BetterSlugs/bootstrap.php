@@ -1,24 +1,10 @@
 <?php
-/**
- * Cockpit better slugs addon
- *
- * @author     Paulo Gomes (2019), Raruto (2021)
- * @package    cockpit-blog
- * @subpackage CockpitCMS-BetterSlugs
- * @license    MIT
- *
- * @source https://github.com/pauloamgomes/CockpitCMS-BetterSlugs
- * @see { README.md } for usage info.
- *
- * CHANGES (01/21):
- * - removed composer dependency ("classmap" autoloader)
- * - renamed default namespace ("Cockpit\\BetterSlugs" --> "BetterSlugs")
- * - code comments
- */
 
 /**
- * The following class is autoloaded by Lime\App::loadModules()
+ * @file
+ * Cockpit module bootstrap implementation.
  */
+
 $this->helpers['betterslugs'] = 'BetterSlugs\\Helper\\Utils';
 
 $this->module('betterslugs')->extend([
@@ -30,7 +16,8 @@ $this->module('betterslugs')->extend([
     // Only automate slug generation if field is empty.
     if (empty($entry[$fieldName])) {
       $slug = $this->app->helper('betterslugs')->generate($format, $name, $entry);
-    } else {
+    }
+    else {
       $slug = $entry[$fieldName];
     }
 
@@ -44,7 +31,8 @@ $this->module('betterslugs')->extend([
         if ($locale === 'default') {
           $locFieldName  = $fieldName;
           $lang = $this->app->config['i18n'];
-        } else {
+        }
+        else {
           $locFieldName = "{$fieldName}_{$locale}";
           $lang = $locale;
         }
@@ -55,12 +43,14 @@ $this->module('betterslugs')->extend([
 
         if (empty($entry[$locFieldName])) {
           $slug = $this->app->helper('betterslugs')->generate($format, $name, $entry, $lang);
-        } else {
+        }
+        else {
           $slug = $entry[$locFieldName] ?? $entry[$fieldName] ?? '';
         }
         $entry[$locFieldName] = $slug;
       }
-    } else {
+    }
+    else {
       $entry[$fieldName] = $slug;
     }
 

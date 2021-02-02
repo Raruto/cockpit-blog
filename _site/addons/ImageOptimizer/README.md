@@ -5,8 +5,46 @@ The image optimization is performed using the Spatie library - https://github.co
 
 ## Installation
 
-Download and unpack add-on to `<cockpit-folder>/addons/ImageOptimizer` folder.
+### Manual
+
+Download [latest release](https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer) and extract to `COCKPIT_PATH/addons/ImageOptimizer` directory
+
 By default the Spatie library will detect any optimization binaries on your system and use them, more details about that on https://github.com/spatie/image-optimizer#optimization-tools.
+
+### Git
+
+```sh
+git clone https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer.git ./addons/ImageOptimizer
+```
+
+### Cockpit CLI
+
+```sh
+php ./cp install/addon --name ImageOptimizer --url https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer.git
+```
+
+### Composer
+
+1. Make sure path to cockpit addons is defined in your projects' _composer.json_ file:
+
+  ```json
+  {
+      "name": "MY_PROJECT",
+      "extra": {
+          "installer-paths": {
+              "cockpit/addons/{$name}": ["type:cockpit-module"]
+          }
+      }
+  }
+  ```
+
+2. In your project root run:
+
+  ```sh
+  composer require pauloamgomes/cockpitcms-imageoptimizer
+  ```
+
+---
 
 ## Configuration
 

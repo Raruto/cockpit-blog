@@ -1,0 +1,13 @@
+@<?xml version="1.0" encoding="UTF-8"@?>
+@<?xml-stylesheet type="text/xsl" href="@base('sitemap.xsl')"@?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+  {% $items = cockpit('collections')->find($id, [ 'filter' => [ 'published' => true ], 'sort' => [ '_created' => -1 ] ]); %}
+  @foreach($items as $item)
+    <url>
+      <loc>{{ $app['site_url'] . $app['base_url'] . $base_slug . $item['slug'] }}</loc>
+      <lastmod>{{ \date('c', ($item['_modified']) ?? $item['_created']) }}</lastmod>
+			@if(!empty($item['_changefreq']))<changefreq>{{ $item['_changefreq'] }}</changefreq>@endif
+			@if(!empty($item['_priority']))<priority>{{ $item['_priority'] }}</priority>@endif
+    </url>
+  @endforeach
+</urlset>

@@ -21,13 +21,13 @@ $this->helpers['extendedforms'] = 'ExtendedForms\\Helper\\Utils';
 *
 * @see { cockpit/modules/forms/bootstrap.php }
 */
-$FORMS_OPEN   = $app->module('forms')->open;
-$FORMS_SUBMIT = $app->module('forms')->submit;
+$FORMS_OPEN   = cockpit()->module('forms')->open;
+$FORMS_SUBMIT = cockpit()->module('forms')->submit;
 
 /**
  * Extend core "Forms" module beahvior.
  */
-$app->module('forms')->extend([
+cockpit()->module('forms')->extend([
 
      /**
       * Override core "Forms::open" beahvior.
@@ -158,7 +158,7 @@ $app->module('forms')->extend([
 * @link https://cpmultiplane.rlj.me/en/docs/lexy with available language structures
 * @see { cockpit/lib/Lexy.php | cockpit/bootsrap.php }
 */
-$app->renderer->extend(function($content) {
+cockpit()->renderer->extend(function($content) {
 
     $replace = [
         'form'    => '<?php cockpit()->module("forms")->open(expr); ?>', // @form(expr)
@@ -181,7 +181,7 @@ $app->renderer->extend(function($content) {
  *
  * @return array $folder
  */
-$app->on('forms.submit.before', function($form, &$data, $frm, &$options) {
+cockpit()->on('forms.submit.before', function($form, &$data, $frm, &$options) {
 
     $forms = $this->helper('extendedforms');
     $files = $forms->get_uploaded_files();
