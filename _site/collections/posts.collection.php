@@ -3,9 +3,9 @@
   'name' => 'posts',
   'label' => 'Posts',
   '_id' => 'posts',
-  'fields' =>
+  'fields' => 
   array (
-    0 =>
+    0 => 
     array (
       'name' => 'published',
       'label' => 'Published',
@@ -13,15 +13,16 @@
       'default' => '',
       'info' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
         'default' => false,
         'label' => false,
       ),
       'width' => '1-1',
       'lst' => true,
+      'group' => 'Attributes',
     ),
-    1 =>
+    1 => 
     array (
       'name' => 'title',
       'label' => 'Title',
@@ -29,7 +30,7 @@
       'default' => '',
       'info' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
         'slug' => true,
       ),
@@ -37,7 +38,7 @@
       'lst' => true,
       'required' => true,
     ),
-    2 =>
+    2 => 
     array (
       'name' => 'slug',
       'label' => '',
@@ -46,17 +47,17 @@
       'info' => '',
       'group' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
         'format' => '[field:title]',
       ),
       'width' => '1-1',
       'lst' => true,
-      'acl' =>
+      'acl' => 
       array (
       ),
     ),
-    3 =>
+    3 => 
     array (
       'name' => 'image',
       'label' => 'Featured Image',
@@ -64,27 +65,27 @@
       'default' => '',
       'info' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
       ),
       'width' => '1-1',
       'lst' => true,
     ),
-    4 =>
+    4 => 
     array (
       'name' => 'content',
       'label' => 'Content',
-      'type' => 'wysiwyg',
+      'type' => 'html',
       'default' => '',
       'info' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
       ),
       'width' => '1-1',
       'lst' => true,
     ),
-    5 =>
+    5 => 
     array (
       'name' => 'excerpt',
       'label' => 'Excerpt',
@@ -92,13 +93,13 @@
       'default' => '',
       'info' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
       ),
       'width' => '1-1',
       'lst' => true,
     ),
-    6 =>
+    6 => 
     array (
       'name' => 'keyword',
       'label' => '',
@@ -107,16 +108,16 @@
       'info' => '',
       'group' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
       ),
       'width' => '1-1',
       'lst' => true,
-      'acl' =>
+      'acl' => 
       array (
       ),
     ),
-    7 =>
+    7 => 
     array (
       'name' => 'tags',
       'label' => 'Tags',
@@ -124,41 +125,60 @@
       'default' => '',
       'info' => '',
       'localize' => false,
-      'options' =>
+      'options' => 
       array (
       ),
       'width' => '1-1',
       'lst' => true,
     ),
+    8 => 
+    array (
+      'name' => 'show_title',
+      'label' => '',
+      'type' => 'boolean',
+      'default' => '',
+      'info' => '',
+      'group' => 'Attributes',
+      'localize' => false,
+      'options' => 
+      array (
+        'default' => true,
+      ),
+      'width' => '1-1',
+      'lst' => true,
+      'acl' => 
+      array (
+      ),
+    ),
   ),
   'sortable' => false,
   'in_menu' => false,
   '_created' => 1607562008,
-  '_modified' => 1612272214,
+  '_modified' => 1612448971,
   'color' => '',
-  'acl' =>
+  'acl' => 
   array (
   ),
-  'sort' =>
+  'sort' => 
   array (
     'column' => '_created',
     'dir' => -1,
   ),
-  'rules' =>
+  'rules' => 
   array (
-    'create' =>
+    'create' => 
     array (
       'enabled' => false,
     ),
-    'read' =>
+    'read' => 
     array (
       'enabled' => false,
     ),
-    'update' =>
+    'update' => 
     array (
       'enabled' => false,
     ),
-    'delete' =>
+    'delete' => 
     array (
       'enabled' => false,
     ),

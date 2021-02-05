@@ -27,7 +27,7 @@ Simple blog implementation with a router
 Public stuffs are located at project web root (`_site`, `css`, `js` and `media` folders).
 
 - **Theme:**
-    php template files are located in the `_site/theme/views` folder.
+    php template files are located in the `_site/_views` folder.
 
 - **Assets:**
     static theme files are located at project web root (`css`, `js`, `media` folders).
@@ -83,13 +83,24 @@ The following plugins are bundled in this repository:
 
 - [Autosave](_site/addons/Autosave)
 - [BetterSlugs](_site/addons/BetterSlugs)
+- [Cache](_site/addons/Cache)
+- [Debug](_site/addons/Debug)
 - [ExtendedForms](_site/addons/ExtendedForms)
+- [ExtendedRoutes](_site/addons/ExtendedRoutes)
+- [Favicon](_site/addons/Favicon)
 - [Honeypot](_site/addons/Honeypot)
 - [ImageOptimizer](_site/addons/ImageOptimizer)
-- [LivePreview](_site/addons/LivePreview)
+- [LexyExtensions](_site/addons/LexyExtensions)
+- [MaintenanceMode](_site/addons/MaintenanceMode)
+- [Matomo](_site/addons/Matomo)
 - [NativeLazyLoading](_site/addons/NativeLazyLoading)
+- [PWA](_site/addons/PWA)
 - [QuickActions](_site/addons/QuickActions)
+- [Renderer](_site/addons/Renderer)
+- [RestAPI](_site/addons/RestAPI)
 - [SampleData](_site/addons/SampleData)
+- [Sitemaps](_site/addons/Sitemaps)
+- [Snippets](_site/addons/Snippets)
 
 **Note:** take a look at the [Cockpit-Helpers](https://github.com/pauloamgomes/CockpitCMS-Helpers) and [Cockpit-Scripts](https://github.com/raffaelj/cockpit-scripts) repositories to find out some other useful code samples on how to build your own addons (see also: [list-of-cockpit-addons](https://discourse.getcockpit.com/t/list-of-cockpit-addons/234)).
 

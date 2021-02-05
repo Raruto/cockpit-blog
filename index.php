@@ -14,14 +14,8 @@
 /** App start time **/
 define('START_TIME', microtime(true));
 
-/** Cockpit enviroment **/
-define('COCKPIT_FRONTEND', true);
-
 /** Cockpit folder name **/
 define('COCKPIT', 'admin');
-
-/** Theme folder name **/
-define('THEME', '_site/theme');
 
 // set default timezone
 date_default_timezone_set('UTC');
@@ -39,7 +33,7 @@ if (file_exists(COCKPIT.'/bootstrap.php')) {
 }
 
 // bootstrap theme
-require(THEME.'/bootstrap.php');
+require(__DIR__.'/bootstrap.php');
 
 # Set default route
 if (COCKPIT_FRONTEND && !defined('COCKPIT_SITE_ROUTE')) {
