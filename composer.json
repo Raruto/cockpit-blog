@@ -16,7 +16,7 @@
         "raruto/cockpit-native-lazy-loading": "0.0.*",
         "raruto/cockpit-extended-forms": "0.0.*",
         "raruto/cockpit-honeypot": "0.0.*",
-        "pauloamgomes/cockpitcms-betterslugs": "dev-master"
+        "pauloamgomes/cockpitcms-betterslugs": "1.0.*"
     },
     "extra": {
         "installer-paths": {
