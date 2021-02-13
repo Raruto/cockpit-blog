@@ -12,13 +12,13 @@
         // Sitemap [index]
         $app->bind('/sitemap.xml', function() {
             $this->response->mime = 'xml';
-            return $this->view('sitemaps:views/layouts/sitemap.xml');
+            return $this->view('xmlsitemaps:views/layouts/sitemap.xml');
         });
 
         // Sitemap [xsl]
         $app->bind('/sitemap.xsl', function() {
             $this->response->mime = 'xml';
-            return $this->view('sitemaps:views/layouts/sitemap.xsl');
+            return $this->view('xmlsitemaps:views/layouts/sitemap.xsl');
         });
 
 
@@ -32,7 +32,7 @@
         //   $base_slug = $collection['base_slug'] ?? '';
         //   $app->bind("/{$id}-sitemap.xml", function($params) use ($id, $base_slug) {
         //       $this->response->mime = 'xml';
-        //       return $this->view('sitemaps:views/layouts/collection.xml', compact('id', 'base_slug'));
+        //       return $this->view('xmlsitemaps:views/layouts/collection.xml', compact('id', 'base_slug'));
         //   });
         // }
 
@@ -43,33 +43,14 @@
             if (empty($collection) || empty($collection['has_sitemap'])) {
               $this->reroute('/sitemap.xml');
             }
-            return $this->view('sitemaps:views/layouts/collection.xml', [ 'id' => $collection['_id'], 'base_slug' => $collection['base_slug'] ?? '' ]);
+            return $this->view('xmlsitemaps:views/layouts/collection.xml', [ 'id' => $collection['_id'], 'base_slug' => $collection['base_slug'] ?? '' ]);
         });
 
         // Robots
         $app->bind('/robots.txt', function() use (&$app) {
           $this->response->mime = 'txt';
-          return $app->view('sitemaps:views/layouts/robots.txt');
+          return $app->view('xmlsitemaps:views/layouts/robots.txt');
         }, '/' === $app['base_url'] /* display robots.txt only if we are in top-level directory of the host. */ );
-
-
-        // Feed [json, xml]
-        $app->bind('/feed/*', function($params) {
-            if (count(explode('/', $params[':splat'][0] ?? '')) > 1) {
-              return;
-            }
-
-            $path       = \pathinfo($params[':splat'][0] ?? 'feed.xml');
-            $ext        = \strtolower($path['extension'] ?? 'xml');
-            $id         = $path['filename'] == 'feed' ? 'posts' : $path['filename'];
-            $collection = cockpit('collections')->collection($id);
-
-            if (empty($collection) || empty($collection['has_feed']) || !in_array($ext, ['xml', 'json'])) {
-                return $this->stop(404);
-            }
-            $this->response->mime = $ext;
-            return $this->view("sitemaps:views/layouts/feed.$ext", [ 'id' => $collection['_id'], 'base_slug' => $collection['base_slug'] ?? '' ]);
-        });
 
     }, 1000);
 
@@ -79,7 +60,7 @@ if (defined('COCKPIT_ADMIN') && COCKPIT_ADMIN) {
 
     // Collection settings
     $app->on('collections.settings.aside', function() {
-      $this->renderView( 'sitemaps:views/collection.settings.php' );
+      $this->renderView( 'xmlsitemaps:views/collection.settings.php' );
     });
 
 }
