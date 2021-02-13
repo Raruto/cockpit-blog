@@ -10,7 +10,7 @@ Simple blog implementation with a router
 
 <blockquote>
     <p align="center">
-        <em>Initially based on <a href="https://github.com/COCOPi/cockpit-docs/blob/master/tutorials/simple_blog.md">cockpit-docs/tutorials/simple_blog.md</a></em>
+        <em>Initially based on <a href="https://github.com/Raruto/cockpit-legacy-docs/blob/master/tutorials/simple_blog.md">cockpit-docs/tutorials/simple_blog.md</a></em>
     </p>
 </blockquote>
 
