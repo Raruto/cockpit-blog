@@ -9,8 +9,6 @@ The image optimization is performed using the Spatie library - https://github.co
 
 Download [latest release](https://github.com/pauloamgomes/CockpitCMS-ImageOptimizer) and extract to `COCKPIT_PATH/addons/ImageOptimizer` directory
 
-By default the Spatie library will detect any optimization binaries on your system and use them, more details about that on https://github.com/spatie/image-optimizer#optimization-tools.
-
 ### Git
 
 ```sh
@@ -47,6 +45,17 @@ php ./cp install/addon --name ImageOptimizer --url https://github.com/pauloamgom
 ---
 
 ## Configuration
+
+By default the Spatie library will use these optimization binaries if they are present on your system:
+
+- [JpegOptim](http://freecode.com/projects/jpegoptim)
+- [Optipng](http://optipng.sourceforge.net/)
+- [Pngquant 2](https://pngquant.org/)
+- [SVGO](https://github.com/svg/svgo)
+- [Gifsicle](http://www.lcdf.org/gifsicle/)
+- [cwebp](https://developers.google.com/speed/webp/docs/precompiled)
+
+More details about that on https://github.com/spatie/image-optimizer#optimization-tools.
 
 No additional configuration is required.
 

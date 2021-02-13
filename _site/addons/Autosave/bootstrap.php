@@ -2,16 +2,12 @@
 /**
  * Cockpit autosave editor addon
  *
- * @author     Paulo Gomes (2019), Raruto (2021)
- * @package    cockpit-blog
- * @subpackage CockpitCMS-Autosave
- * @license    MIT
+ * @author  Paulo Gomes
+ * @package CockpitCMS-Autosave
+ * @license MIT
  *
- * @source https://github.com/pauloamgomes/CockpitCMS-Autosave
- * @see { README.md } for usage info.
- *
- * CHANGES (01/21):
- * - code comments
+ * @source  https://github.com/pauloamgomes/CockpitCMS-Autosave
+ * @see     { README.md } for usage info.
  */
 
 if (COCKPIT_ADMIN && !COCKPIT_API_REQUEST) {

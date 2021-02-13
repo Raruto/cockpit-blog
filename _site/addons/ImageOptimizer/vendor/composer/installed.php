@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'dcb73c459b625b56bd43d260f6e90dac3786a470',
+    'reference' => '0b4b3e11274ebfc1c17a7806421b5f3b9168eeb2',
     'name' => 'pauloamgomes/cockpitcms-imageoptimizer',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'dcb73c459b625b56bd43d260f6e90dac3786a470',
+      'reference' => '0b4b3e11274ebfc1c17a7806421b5f3b9168eeb2',
     ),
     'psr/log' => 
     array (

@@ -28,7 +28,7 @@ $gifsicle      = new Gifsicle([ '-b', '-O3', ]);
 $cwebp         = new Cwebp([ '-m 6', '-pass 10', '-mt', '-q 80' ]);
 
 // helper function to detect necessary executables
-$where = function ($command) {
+$where         = function ($command) {
   return is_executable(shell_exec((strpos(PHP_OS, 'WIN') === 0 ? 'where ' : 'command -v ').$command));
 };
 
@@ -38,6 +38,7 @@ switch(PHP_OS) {
     case 'Linux':
     case 'SunOS':
     case 'WINNT':
+
         // path to precompiled binaries
         $BIN_PATH .= '/'.PHP_OS;
 
@@ -52,17 +53,22 @@ switch(PHP_OS) {
         }
 
         foreach ([$jpegoptim, $pngquant, $optipng, $svgo, $gifsicle, $cwebp] as $optimizer) {
+
           // if installed, use system binaries
           if ($where($optimizer->binaryName)) {
             $spatie   ->addOptimizer($optimizer);
           }
+
           // if bundled, use precompiled binaries
           else if (is_executable("$BIN_PATH/$optimizer->binaryName")) {
             $optimizer->setBinaryPath($BIN_PATH);
             $spatie   ->addOptimizer($optimizer);
           }
+
         }
+
         break;
+
 }
 
 /**

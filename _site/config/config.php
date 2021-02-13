@@ -51,7 +51,11 @@ return [
           'endform'                  => '<?php cockpit()->module("forms")->close(expr); ?>',     // @endform(expr)
           '/(\s*)@(\<\?|\?\>)(\s*)/' => '<?php echo "$2" ?>',                                    // escape php short tags
       ]
-  ]
+  ],
+
+  'flood' => [
+    'errors' => 4
+  ],
 
   // A key for encrypting storage/api.keys.php where api tokens are stored.
   // The file is encrypted using RC4 and converted to base64 before.

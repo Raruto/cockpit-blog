@@ -5,7 +5,44 @@ That means if the user closes by mistake the browser (by mistake or by a system 
 
 ## Installation
 
-Download and unpack add-on to `<cockpit-folder>/addons/Autosave` folder.
+### Manual
+
+Download [latest release](https://github.com/pauloamgomes/CockpitCMS-Autosave) and extract to `COCKPIT_PATH/addons/Autosave` directory
+
+### Git
+
+```sh
+git clone https://github.com/pauloamgomes/CockpitCMS-Autosave.git ./addons/Autosave
+```
+
+### Cockpit CLI
+
+```sh
+php ./cp install/addon --name Autosave --url https://github.com/pauloamgomes/CockpitCMS-Autosave.git
+```
+
+### Composer
+
+1. Make sure path to cockpit addons is defined in your projects' _composer.json_ file:
+
+  ```json
+  {
+      "name": "MY_PROJECT",
+      "extra": {
+          "installer-paths": {
+              "cockpit/addons/{$name}": ["type:cockpit-module"]
+          }
+      }
+  }
+  ```
+
+2. In your project root run:
+
+  ```sh
+  composer require pauloamgomes/cockpitcms-autosave
+  ```
+
+---
 
 ## Configuration
 

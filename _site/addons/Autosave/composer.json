@@ -1,0 +1,25 @@
+{
+    "name": "pauloamgomes/cockpitcms-autosave",
+    "description": "Autosave addon for Cockpit CMS, provides autosave capabilities for collections and singletons",
+    "keywords": ["cms", "headless", "api", "cockpit", "autosave-addon"],
+    "homepage": "https://github.com/pauloamgomes/CockpitCMS-Autosave",
+    "license": "MIT",
+    "type": "cockpit-module",
+    "authors": [
+        {
+            "name": "Paulo Gomes",
+            "email": "pauloamgomes@gmail.com",
+            "homepage": "https://www.pauloamgomes.net"
+        }
+    ],
+    "require": {
+      "php": ">= 7.3",
+      "composer/installers": "^1.10"
+    },
+    "suggest": {
+      "aheinze/cockpit": "Please install Cockpit before installing this addon"
+    },
+    "extra": {
+      "installer-name": "Autosave"
+    }
+}

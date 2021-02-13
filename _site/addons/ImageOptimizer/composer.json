@@ -13,6 +13,7 @@
         }
     ],
     "require": {
+        "php": ">= 7.3",
         "spatie/image-optimizer": "^1.2",
         "composer/installers": "^1.10"
     },
