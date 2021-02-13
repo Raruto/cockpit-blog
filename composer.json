@@ -4,14 +4,12 @@
     "homepage": "https://github.com/Raruto/cockpit-blog/",
     "keywords": ["blog", "markdown", "php", "router", "mongodb", "rest-api", "tinymce", "starter", "phpmailer", "cockpit"],
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Raruto",
-            "homepage": "https://raruto.github.io/"
-        }
-    ],
+    "authors": [{
+        "name": "Raruto",
+        "homepage": "https://raruto.github.io/"
+    }],
     "scripts": {
-        "dev": "php -S localhost:8080 index.php"
+        "dev": ["Composer\\Config::disableProcessTimeout", "php -S localhost:8080 index.php"]
     },
     "require": {
         "php": ">= 7.3",
