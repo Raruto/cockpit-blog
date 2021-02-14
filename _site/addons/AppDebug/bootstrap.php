@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cockpit app debug addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
 
 $app->on('site.init', function() {
 

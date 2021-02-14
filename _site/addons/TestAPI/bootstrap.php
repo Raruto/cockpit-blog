@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cockpit test API addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
 
 // Test page
 $app->bind('/api/test', function() {

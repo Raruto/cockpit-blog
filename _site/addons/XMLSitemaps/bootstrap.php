@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cockpit XML sitemaps addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
 
 // if (defined('COCKPIT_FRONTEND') && COCKPIT_FRONTEND) {
 

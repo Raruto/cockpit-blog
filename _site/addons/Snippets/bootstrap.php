@@ -1,4 +1,72 @@
 <?php
+/**
+ * Cockpit snippets addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
+
+$app->on('admin.init', function() {
+
+    if(!cockpit()->module('collections')->exists('snippets')) {
+
+        cockpit()->module('collections')->createCollection('snippets', [
+          'name'   => 'snippets',
+          'label'  => 'Snippets',
+          'fields' => [
+              0 => [
+                'name'     => 'id',
+                'label'    => '',
+                'type'     => 'slug',
+                'default'  => '',
+                'info'     => '',
+                'group'    => '',
+                'localize' => false,
+                'options'  => [
+                  'format' => '[field:_id]',
+                ],
+                'width'    => '1-1',
+                'lst'      => true,
+                'acl'      => [],
+                'required' => true,
+                ],
+              1 => [
+                'name'     => 'code',
+                'label'    => '',
+                'type'     => 'code',
+                'default'  => '',
+                'info'     => '',
+                'group'    => '',
+                'localize' => false,
+                'options'  => [
+                  'syntax' => 'php',
+                  'height' => 'auto',
+                ],
+                'width'   => '1-1',
+                'lst'     => true,
+                'acl'     => [],
+              ],
+            ],
+            'sortable'  => false,
+            'in_menu'   => false,
+            'color'     => '#3C3B3D',
+            'acl'       => [],
+            'sort'  => [
+              'column'  => '_created',
+              'dir'     => -1,
+            ],
+            'rules' => [
+              'create' => [ 'enabled' => false, ],
+              'read'   => [ 'enabled' => false, ],
+              'update' => [ 'enabled' => false, ],
+              'delete' => [ 'enabled' => false, ],
+            ],
+            'icon'  => 'code.svg',
+        ]);
+    }
+
+});
 
 cockpit()->module('snippets')->extend([
 

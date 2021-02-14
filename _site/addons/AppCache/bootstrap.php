@@ -1,5 +1,13 @@
 <?php
 /**
+ * Cockpit app cache addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
+
+/**
  * Set CACHE folder
  *
  * @see { Lime/App | Lime/Helper/Cache | cockpit/lib/Lexy.php | cockpit/bootstrap.php }

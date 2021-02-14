@@ -1,5 +1,13 @@
 <?php
 /**
+ * Cockpit app favicon addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
+
+/**
  * Change image favicon, login and dashboard
  *
  * @link https://discourse.getcockpit.com/t/change-image-favicon-login-and-dashboard/1343

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cockpit matomo addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
 
 $app->module('matomo')->extend([
 

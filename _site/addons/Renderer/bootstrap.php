@@ -1,4 +1,11 @@
 <?php
+/**
+ * Cockpit renderer addon
+ *
+ * @author  Raruto
+ * @package cockpit-blog
+ * @license MIT
+ */
 
 // $app->module('renderer')->extend([
 //
