@@ -7,7 +7,7 @@ $app->on('site.init', function() {
 
         // print some debug info
         if ($this['debug.info']) {
-            $this->renderView('debug:views/debug.php');
+            $this->renderView('appdebug:views/debug.php');
         }
 
     });

@@ -81,14 +81,14 @@ The following classes are part of the cockpit core:
 
 The following plugins are bundled in this repository:
 
+- [AppCache](_site/addons/AppCache)
+- [AppDebug](_site/addons/AppDebug)
+- [AppFavicon](_site/addons/AppFavicon)
 - [Autosave](_site/addons/Autosave)
 - [BetterSlugs](_site/addons/BetterSlugs)
-- [Cache](_site/addons/Cache)
-- [Debug](_site/addons/Debug)
 - [ExtendedForms](_site/addons/ExtendedForms)
 - [ExtendedLime](_site/addons/ExtendedLime)
 - [ExtendedUI](_site/addons/ExtendedUI)
-- [Favicon](_site/addons/Favicon)
 - [Honeypot](_site/addons/Honeypot)
 - [ImageOptimizer](_site/addons/ImageOptimizer)
 - [MaintenanceMode](_site/addons/MaintenanceMode)
