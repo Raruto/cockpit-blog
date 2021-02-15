@@ -18,6 +18,7 @@
         "raruto/cockpit-honeypot": "0.0.*",
         "raruto/cockpit-native-lazy-loading": "0.0.*",
         "raruto/cockpit-sample-addon": "0.0.*",
+        "raruto/cockpit-sample-data": "0.0.*",
         "pauloamgomes/cockpitcms-betterslugs": "1.0.*"
     },
     "extra": {

@@ -5,12 +5,14 @@
  * @author  Raruto
  * @package cockpit-blog
  * @license MIT
+ *
+ * @source https://github.com/Raruto/cockpit-sample-data
  */
 
 /**
  * Set default langauge for "admin" user during app install.
  *
- * @todo submit a fixing pull request for: { cockpit/install/index.php#L82 }
+ * @see { cockpit/install/index.php#L82 }
  */
 if ( defined( 'COCKPIT_INSTALL' ) && COCKPIT_INSTALL ) {
   \register_shutdown_function(function() use(&$app) {
