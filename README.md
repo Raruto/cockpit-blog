@@ -97,7 +97,7 @@ The following plugins are bundled in this repository:
 - [NativeLazyLoading](_site/addons/NativeLazyLoading)
 - [PWA](_site/addons/PWA)
 - [RSSFeed](_site/addons/RSSFeed)
-- [TestAPI](_site/addons/RestAPI)
+- [SampleAddon](_site/addons/SampleAddon)
 - [SampleData](_site/addons/SampleData)
 - [XMLSitemaps](_site/addons/XMLSitemaps)
 - [Snippets](_site/addons/Snippets)
