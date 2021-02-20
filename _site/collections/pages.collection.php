@@ -82,6 +82,10 @@
       'options' => 
       array (
         'enablescripts' => true,
+        'codemirror' => 
+        array (
+          'mode' => 'application/x-httpd-php',
+        ),
       ),
       'width' => '1-1',
       'lst' => true,
@@ -155,7 +159,7 @@
   'sortable' => false,
   'in_menu' => false,
   '_created' => 1609110417,
-  '_modified' => 1612448565,
+  '_modified' => 1613857708,
   'color' => '',
   'acl' => 
   array (
