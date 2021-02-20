@@ -92,6 +92,11 @@ cockpit()->module('forms')->extend([
         // Filter submitted data
         $this->app->trigger('forms.submit.before', [$form, &$data, $frm, &$options]);
 
+        // Invalid form data
+        if (empty($data)) {
+            return false;
+        }
+
         // Send email
         if (isset($frm['email_forward']) && $frm['email_forward']) {
 
@@ -151,6 +156,49 @@ cockpit()->module('forms')->extend([
     }
 
 ]);
+
+// REST
+if (COCKPIT_API_REQUEST) {
+
+    cockpit()->bind('/api/forms/submit/:form', function($params) {
+
+        $form = $params["form"];
+        $formhash = $this->param('__csrf', false);
+
+        // Security check
+        if (!password_verify($form, $formhash)) {
+            return false;
+        }
+
+        $data    = $this->param('form', []);
+        $options = $this->param('form_options', []);
+
+        return $this->module('forms')->submit($form, $data, $options);
+
+    }, cockpit()->param('__csrf', false));
+
+    if (!cockpit()->param('__csrf', false)) {
+
+        cockpit()->on('cockpit.rest.init', function($routes) {
+
+            $frm = $this->module('forms')->form($form);
+
+            if (!$frm) {
+                return false;
+            }
+
+            $data    = $this->param('form', []);
+            $options = $this->param('form_options', []);
+
+            if ($this->param('__mailsubject')) {
+                $options['subject'] = $this->param('__mailsubject');
+            }
+
+            return $this->module('forms')->submit($form, $data, $options);
+
+        });
+    }
+}
 
 /**
 * Extend Lexy Parser (templating engine)

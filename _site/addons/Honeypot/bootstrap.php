@@ -90,5 +90,5 @@ $app->on('forms.submit.before', function($form, &$data, $frm, &$options) {
  * @see { cockpit/modules/forms/views/form.php }
  */
 $app->on('forms.settings.aside', function() {
-    $this->app->renderView('honeypot:views/settings-field.php');
+    $this->renderView('honeypot:views/settings-field.php');
 });

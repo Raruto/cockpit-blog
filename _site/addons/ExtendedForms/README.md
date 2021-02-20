@@ -7,6 +7,7 @@ Extended forms addon for [Cockpit CMS](http://getcockpit.com/)
 - Automatically check and retrieve forms uploaded [$_FILES](https://github.com/agentejo/cockpit/pull/1411).
 - Improved [Forms::open](https://github.com/agentejo/cockpit/pull/1400) and [Forms::close](https://github.com/agentejo/cockpit/pull/1400) api
 - Improved [Forms::submit](https://github.com/agentejo/cockpit/pull/1399) logic
+- Fix [Forms::submit](https://github.com/agentejo/cockpit/pull/1411) api
 
 ## Installation
 
