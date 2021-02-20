@@ -7,6 +7,8 @@ if (!defined('ABSPATH')) {
 /** Cockpit enviroment **/
 define('COCKPIT_FRONTEND', true);
 
+define('COCKPIT_THEME', ABSPATH . '/_site/_theme');
+
 /**
  * Lime App (frontend)
  *
@@ -68,11 +70,11 @@ $app = new LimeExtra\App(
       // 'assets'    => COCKPIT_DIR.'/assets',
       // 'site'      => COCKPIT_SITE_DIR
 
-      // 'theme'          => ABSPATH . '/_site/theme',
-      'views'          => ABSPATH . '/_site/_views',
-      'blocks'         => ABSPATH . '/_site/_views/blocks',
-      'layouts'        => ABSPATH . '/_site/_views/layouts',
-      'partials'       => ABSPATH . '/_site/_views/partials',
+      'theme'          => COCKPIT_THEME,
+      'views'          => COCKPIT_THEME . '/views',
+      'blocks'         => COCKPIT_THEME . '/views/blocks',
+      'layouts'        => COCKPIT_THEME . '/views/layouts',
+      'partials'       => COCKPIT_THEME . '/views/partials',
     ]),
 
     // 'autoload'      => new \ArrayObject([]),
@@ -125,114 +127,4 @@ $app->loadModules($cockpit['loadmodules'] ?? []);
 // $app->loadModules([$app->path('theme:modules')], true, 'theme');
 // $app->loadModules([$app->path('theme:addons')], true, 'theme');
 
-
-/**
- * Custom template HOOKS
- *
- * use {{ @trigger('custom.hook.name') }} inside template files for firing your custom event
- *
- * @see { layouts:base.php }
- */
-
-// After opening <body> tag
-// $app->on('site.header.scripts', function() { });
-
-// Beside {{ $content_for_layout }} variable
-$app->on('site.contentbefore',  function() { echo '<main>'; });
-$app->on('site.contentafter',   function() { echo '</main>'; });
-
-// Before closing </body> tag
-// $app->on('site.footer', function() { });
-
-// After opening <body> tag
-$app->on('site.header.scripts', function() { cockpit()->module('matomo')->render(); });
-
-$app->on('sitemap.head',        function() { $this->renderView('partials:sitemap-head.php'); });
-$app->on('sitemap.footer',      function() { $this->renderView('partials:sitemap-footer.php'); });
-
-/**
- * Lime HOOKS (frontend)
- *
- * @see { LimeExtra/App | Lime/App }
- */
-
-$app->on('site.init', function() use (&$app) {
-
-    // Fired at the beginning of the {{ $app->view() }} rendering function
-    $app->on('app.render.view', function(&$template, &$slots) use (&$app) {
-        // make $page variable globally available in template files
-        $page = $slots['page'] ?? [];
-        if( !empty($page) ) {
-            $this->viewvars['page'] = $page = array_replace_recursive([
-                'title'          => '',
-                'description'    => $app['app.description'] ?? '',
-                'meta.robots'    => $app['meta.robots'] ?? '',
-            ], $page);
-        }
-    });
-
-    /**
-     * Module HOOKS (backend)
-     *
-     * @see { cockpit/modules/Collections/bootstrap.php }
-     */
-
-    // Fired at the beginning of the {{ cockpit('collections')->find($collection, $options = []) }} function
-    cockpit()->on(
-        [
-            'collections.find.before.posts',
-            'collections.find.before.pages'
-        ],
-        function($name, &$options) {
-            // set default "filter" to published
-            if (!isset($options['filter'])) {
-                $options['filter'] = [ 'published' => true ];
-            } else if( !isset($options['filter']['published']) ) {
-                $options['filter']['published'] = true;
-            }
-            // set default "sort" order to created
-            if (!isset($options['sort'])) {
-                $options['sort'] = [ '_created' => -1 ];
-            } else if( !isset($options['sort']['_created']) ) {
-                $options['sort']['_created'] = -1;
-            }
-        }
-    );
-
-    // Fired at the end of the {{ cockpit('collections')->find($collection, $options = []) }} function
-    cockpit()->on('collections.find.after', function($name, &$entries) use ($app) {
-        foreach ($entries as $k => $entry) {
-            if (isset($entry['content'])) {
-                // render lexy code @snippets
-                $entries[$k]['content'] = $app->renderer->execute($entries[$k]['content'], $app->viewvars);
-            }
-        }
-    });
-
-});
-
-/**
- * Render ROUTES
- *
- * use {{ $app->viewvars['custom_var'] }} for having {{ $custom_var }} variable globally available in template files
- * use {{ $content_for_layout }} variable in "layouts:base.php" for echoing content coming from partials files
- * use {{ return false; }} inside calback functions for returning a 404 response
- *
- * @see { Lime/App | LimeExtra/App | Lime/Request | Lime/Response } for available helper functions.
- */
-
-$app->on('site.init', function() use (&$app) {
-
-    // Rest API
-    $app->bind('/api/*', function($params) use (&$app) {
-      // TODO: how to proxy admin/index.php? (eg. htaccess)
-      // 302 redirect to admin API.
-      return $app->reroute(COCKPIT .'/api/' . rtrim($params[':splat'][0], '/') . (empty($_SERVER['QUERY_STRING']) ? '' : '?'. $_SERVER['QUERY_STRING']));
-    });
-
-    // Everything else [404]
-    $app->bind('/*', function($params) use (&$app) {
-      return false;
-    });
-
-}, 0);
+include(COCKPIT_THEME.'/bootstrap.php');

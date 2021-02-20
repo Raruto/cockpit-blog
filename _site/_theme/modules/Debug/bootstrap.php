@@ -14,7 +14,7 @@ $app->on('site.init', function() {
 
         // print some debug info
         if ($this['debug.info']) {
-            $this->renderView('appdebug:views/debug.php');
+            $this->renderView('theme-debug:views/debug.php');
         }
 
     });

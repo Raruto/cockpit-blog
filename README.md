@@ -27,7 +27,7 @@ Simple blog implementation with a router
 Public stuffs are located at project web root (`_site`, `css`, `js` and `media` folders).
 
 - **Theme:**
-    php template files are located in the `_site/_views` folder.
+    php template files are located in the `_site/_theme/views` folder.
 
 - **Assets:**
     static theme files are located at project web root (`css`, `js`, `media` folders).
@@ -81,10 +81,6 @@ The following classes are part of the cockpit core:
 
 The following plugins are bundled in this repository:
 
-- [AppCache](_site/addons/AppCache)
-- [AppDebug](_site/addons/AppDebug)
-- [AppFavicon](_site/addons/AppFavicon)
-- [AppRenderer](_site/addons/AppRenderer)
 - [Autosave](_site/addons/Autosave)
 - [BetterSlugs](_site/addons/BetterSlugs)
 - [ExtendedForms](_site/addons/ExtendedForms)
@@ -99,6 +95,7 @@ The following plugins are bundled in this repository:
 - [RSSFeed](_site/addons/RSSFeed)
 - [SampleAddon](_site/addons/SampleAddon)
 - [SampleData](_site/addons/SampleData)
+- [SVGFavicon](_site/addons/SVGFavicon)
 - [XMLSitemaps](_site/addons/XMLSitemaps)
 - [Snippets](_site/addons/Snippets)
 
@@ -158,7 +155,7 @@ Backup your `admin/defines.php` file and replace the `admin` folder with your [c
   - [Schema.org](https://schema.org/docs/gs.html)
   - [Matomo Tracking](https://developer.matomo.org/guides/tracking-javascript-guide)
   - [Offline caching](https://developers.google.com/web/ilt/pwa/caching-files-with-service-worker) (PWA - Service Worker)
-  - [Posts Pagination](_site/_views/partials/pagination.php)
+  - [Posts Pagination](_site/_theme/views/partials/pagination.php)
   - [Installer Script](install/index.php)
   - [Privacy and Cookie](https://creativecommons.org/policies/)
   - [Contact form](https://github.com/raffaelj/cockpit-scripts/blob/master/form-validation/contact.php)
