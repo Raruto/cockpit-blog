@@ -44,12 +44,12 @@ return [
 
   'lexy' => [
       'extensions' => [
-          'dump'                     => '<?php echo highlight_str(expr); ?>',                    // @dump(expr)
-          'json'                     => '<?php echo json_encode(expr); ?>',                      // @json(expr)
-          'snippet'                  => '<?php cockpit()->module("snippets")->render(expr); ?>', // @snippet(expr)
-          'form'                     => '<?php cockpit()->module("forms")->open(expr); ?>',      // @form(expr)
-          'endform'                  => '<?php cockpit()->module("forms")->close(expr); ?>',     // @endform(expr)
-          '/(\s*)@(\<\?|\?\>)(\s*)/' => '<?php echo "$2" ?>',                                    // escape php short tags
+          'dump'                     => '<?= highlight_str(expr); ?>',                    // @dump(expr)
+          'json'                     => '<?= json_encode(expr); ?>',                      // @json(expr)
+          'snippet'                  => '<?= cockpit()->module("snippets")->render(expr); ?>', // @snippet(expr)
+          'form'                     => '<?= cockpit()->module("forms")->open(expr); ?>',      // @form(expr)
+          'endform'                  => '<?= cockpit()->module("forms")->close(expr); ?>',     // @endform(expr)
+          '/(\s*)@(\<\?|\?\>)(\s*)/' => '<?= "$2" ?>',                                    // escape php short tags
       ]
   ],
 
