@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 /** Cockpit enviroment **/
 define('COCKPIT_FRONTEND', true);
 
-define('COCKPIT_THEME', ABSPATH . '/_site/_theme');
+define('COCKPIT_THEME', ABSPATH . '/_theme');
 
 /**
  * Lime App (frontend)
