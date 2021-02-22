@@ -9,11 +9,15 @@
         "homepage": "https://raruto.github.io/"
     }],
     "scripts": {
-        "dev": ["Composer\\Config::disableProcessTimeout", "php -S localhost:8080 index.php"]
+        "dev": [
+          "Composer\\Config::disableProcessTimeout",
+          "php -r \"exec((['Darwin'=>'open', 'WINNT'=>'explorer'][PHP_OS] ?? 'xdg-open').' '.escapeshellarg('http://localhost:8080'));\"",
+          "php -S localhost:8080 index.php"
+        ]
     },
     "require": {
         "php": ">= 7.3",
-        "composer/installers": "^1.10",
+        "oomphinc/composer-installers-extender": "^2.0",
         "raruto/cockpit-extended-forms": "0.0.*",
         "raruto/cockpit-honeypot": "0.0.*",
         "raruto/cockpit-native-lazy-loading": "0.0.*",
